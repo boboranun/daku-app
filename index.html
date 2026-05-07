@@ -9,78 +9,367 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     :root {
-      --bg: #F5EDE0;
-      --paper: #FDF6EC;
+      --bg: #F0E6D6;
+      --paper: #FDF8F0;
       --paper2: #FFF9F2;
-      --pink: #E8899A;
-      --pink-light: #F5C5CE;
-      --brown: #6B4226;
-      --brown-light: #A07850;
-      --beige: #D4B896;
-      --beige-light: #EDD9C0;
+      --pink: #D4788A;
+      --pink-light: #F0C0CB;
+      --brown: #5C3820;
+      --brown-light: #9B7050;
+      --beige: #C8A882;
+      --beige-light: #E8D0B4;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      font-family: 'Nanum Gothic', sans-serif;
-      min-height: 100vh;
-      background-image: radial-gradient(circle at 20% 20%, rgba(232,137,154,0.08) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(212,184,150,0.1) 0%, transparent 50%);
-    }
-    .header { text-align: center; padding: 40px 20px 20px; }
-    .header-title { font-family: 'Nanum Myeongjo', serif; font-size: 1.9rem; font-weight: 800; color: var(--brown); margin-bottom: 6px; }
-    .header-title span { color: var(--pink); }
-    .header-sub { font-size: 0.82rem; color: var(--brown-light); letter-spacing: 0.03em; }
-    .main { max-width: 420px; margin: 0 auto; padding: 0 18px 120px; display: flex; flex-direction: column; gap: 20px; }
-    .paper-card { background: var(--paper); border-radius: 4px; padding: 22px 20px 20px; position: relative; box-shadow: 2px 3px 0px rgba(107,66,38,0.08), 0 6px 20px rgba(107,66,38,0.1); }
-    .tape { position: absolute; height: 16px; border-radius: 2px; opacity: 0.75; }
-    .tape-pink { background: repeating-linear-gradient(90deg, #F2C4C4 0px, #F2C4C4 6px, #E8A8A8 6px, #E8A8A8 12px); }
-    .tape-beige { background: repeating-linear-gradient(90deg, #D4C4A8 0px, #D4C4A8 6px, #C4B498 6px, #C4B498 12px); }
-    .hole { position: absolute; left: 10px; width: 7px; height: 7px; border-radius: 50%; background: var(--bg); border: 1px solid var(--beige-light); }
-    .card-label { display: inline-block; background: var(--beige-light); color: var(--brown); font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; letter-spacing: 0.05em; }
-    .sketch-area { background: #FFFDF8; border: 1.5px solid var(--beige); border-radius: 4px; padding: 16px; margin-bottom: 14px; min-height: 200px; display: flex; align-items: center; justify-content: center; background-image: repeating-linear-gradient(transparent, transparent 23px, rgba(212,184,150,0.25) 23px, rgba(212,184,150,0.25) 24px); background-size: 100% 24px; }
-    .sketch-area svg { width: 100%; max-width: 280px; height: auto; }
-    .sketch-empty { text-align: center; color: var(--beige); font-size: 0.85rem; font-style: italic; line-height: 1.8; }
-    .result-name { font-family: 'Nanum Myeongjo', serif; font-size: 1.2rem; font-weight: 700; color: var(--brown); margin-bottom: 6px; }
-    .result-desc { font-size: 0.8rem; color: var(--brown-light); line-height: 1.7; margin-bottom: 10px; }
-    .trait { font-size: 0.78rem; color: var(--brown-light); margin-bottom: 5px; line-height: 1.5; }
-    .tag { display: inline-flex; align-items: center; gap: 4px; background: var(--paper2); border: 1px solid var(--beige-light); border-radius: 20px; padding: 4px 10px; font-size: 0.72rem; color: var(--brown-light); margin-bottom: 6px; }
-    .tag-label { font-weight: 700; color: var(--brown); }
-    .swatch-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
-    .swatch-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-    .swatch { width: 52px; height: 52px; border-radius: 50%; border: 3px solid white; box-shadow: 0 3px 10px rgba(0,0,0,0.12); }
-    .swatch-name { font-size: 0.65rem; color: var(--brown-light); text-align: center; max-width: 60px; line-height: 1.3; }
-    .btn-pick { width: 100%; padding: 14px; background: var(--pink); border: none; border-radius: 50px; font-size: 0.95rem; color: white; cursor: pointer; font-family: 'Nanum Myeongjo', serif; font-weight: 700; letter-spacing: 0.05em; transition: all 0.2s; box-shadow: 0 4px 14px rgba(232,137,154,0.35); margin-top: 6px; }
-    .btn-pick:active { transform: scale(0.98); }
-    .btn-pick:disabled { background: var(--beige); box-shadow: none; cursor: not-allowed; }
-    .save-card { background: var(--paper); border-radius: 4px; padding: 22px 20px 20px; position: relative; box-shadow: 2px 3px 0px rgba(107,66,38,0.08), 0 6px 20px rgba(107,66,38,0.1); text-align: center; }
-    .save-title { font-family: 'Nanum Myeongjo', serif; font-size: 1rem; color: var(--brown); margin-bottom: 6px; font-weight: 700; }
-    .save-desc { font-size: 0.75rem; color: var(--brown-light); margin-bottom: 14px; line-height: 1.6; }
-    .btn-row { display: flex; gap: 10px; }
-    .btn-secondary { flex: 1; padding: 13px; background: var(--paper2); border: 1.5px solid var(--beige); border-radius: 50px; font-size: 0.85rem; color: var(--brown); cursor: pointer; font-family: 'Nanum Gothic', sans-serif; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 2px 8px rgba(107,66,38,0.08); }
-    .btn-primary { flex: 1; padding: 13px; background: var(--pink); border: none; border-radius: 50px; font-size: 0.85rem; color: white; cursor: pointer; font-family: 'Nanum Gothic', sans-serif; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 4px 14px rgba(232,137,154,0.4); }
-    .btn-primary:disabled { background: var(--beige); box-shadow: none; cursor: not-allowed; }
-    .save-status { font-size: 0.75rem; color: var(--pink); margin-top: 10px; min-height: 18px; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-    .spinning { animation: pulse 0.7s ease infinite; }
-    /* SAVE PREVIEW */
-    #save-preview { position: fixed; left: -9999px; top: 0; width: 360px; background: #F5EDE0; font-family: 'Nanum Gothic', sans-serif; padding: 28px 24px; }
-    .sp-header { text-align: center; margin-bottom: 16px; }
-    .sp-title { font-family: 'Nanum Myeongjo', serif; font-size: 1.4rem; font-weight: 800; color: #6B4226; }
-    .sp-date { font-size: 0.72rem; color: #A07850; margin-top: 3px; }
-    .sp-section { background: #FDF6EC; border-radius: 4px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid #EDD9C0; }
-    .sp-label { font-size: 0.65rem; font-weight: 700; color: #A07850; letter-spacing: 0.08em; margin-bottom: 6px; }
-    .sp-value { font-family: 'Nanum Myeongjo', serif; font-size: 1rem; font-weight: 700; color: #6B4226; margin-bottom: 4px; }
-    .sp-sub { font-size: 0.72rem; color: #A07850; }
-    .sp-swatches { display: flex; gap: 8px; margin-top: 8px; }
-    .sp-swatch { width: 30px; height: 30px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-    .sp-footer { text-align: center; font-size: 0.68rem; color: #A07850; margin-top: 14px; font-style: italic; }
+
+```
+body {
+  background: var(--bg);
+  font-family: 'Nanum Gothic', sans-serif;
+  min-height: 100vh;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 15% 15%, rgba(232,180,154,0.2) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 85%, rgba(210,160,140,0.15) 0%, transparent 55%);
+}
+
+/* ── HEADER ── */
+.header {
+  text-align: center;
+  padding: 44px 20px 8px;
+  position: relative;
+}
+.header-sparkle {
+  font-size: 0.9rem;
+  color: var(--pink);
+  letter-spacing: 0.3em;
+  display: block;
+  margin-bottom: 6px;
+  opacity: 0.7;
+}
+.header-title {
+  font-family: 'Nanum Myeongjo', serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--brown);
+  margin-bottom: 6px;
+  position: relative;
+  display: inline-block;
+}
+.header-title::after {
+  content: '✦';
+  font-size: 0.7rem;
+  color: var(--pink);
+  position: absolute;
+  top: 4px;
+  right: -18px;
+}
+.header-sub {
+  font-size: 0.8rem;
+  color: var(--brown-light);
+  margin-top: 4px;
+  margin-bottom: 20px;
+}
+
+/* ── LAYOUT ── */
+.main {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 0 16px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* ── TORN PAPER CARD ── */
+.paper-card {
+  position: relative;
+  margin-top: 10px;
+}
+
+/* torn top edge using SVG */
+.torn-top {
+  display: block;
+  width: 100%;
+  height: 18px;
+  margin-bottom: -1px;
+}
+
+.torn-bottom {
+  display: block;
+  width: 100%;
+  height: 18px;
+  margin-top: -1px;
+}
+
+.card-body {
+  background: var(--paper);
+  padding: 6px 20px 20px;
+  position: relative;
+  /* subtle paper texture */
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 27px,
+      rgba(200,168,130,0.12) 27px,
+      rgba(200,168,130,0.12) 28px
+    );
+  box-shadow: 0 2px 12px rgba(92,56,32,0.08);
+}
+
+/* ring holes on left */
+.holes {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  pointer-events: none;
+}
+.hole {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1.5px solid var(--beige-light);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.card-inner {
+  padding-left: 24px;
+}
+
+/* ── TAPE ── */
+.tape {
+  position: absolute;
+  height: 20px;
+  border-radius: 2px;
+  z-index: 10;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+/* pink gingham check */
+.tape-check {
+  background-color: #F0C8C8;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(210,140,140,0.5) 0px, rgba(210,140,140,0.5) 4px, transparent 4px, transparent 8px),
+    repeating-linear-gradient(90deg, rgba(210,140,140,0.5) 0px, rgba(210,140,140,0.5) 4px, transparent 4px, transparent 8px);
+  opacity: 0.82;
+}
+/* beige plain */
+.tape-plain {
+  background: #DDD0B8;
+  opacity: 0.7;
+}
+
+/* ── CARD LABEL ── */
+.card-label {
+  display: inline-block;
+  background: var(--beige-light);
+  color: var(--brown);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+  letter-spacing: 0.06em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* ── SKETCH AREA (lined notebook) ── */
+.sketch-area {
+  background: #FFFDFA;
+  border: 1px solid var(--beige-light);
+  border-radius: 3px;
+  padding: 14px;
+  margin-bottom: 14px;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-image:
+    repeating-linear-gradient(
+      transparent, transparent 23px,
+      rgba(200,168,130,0.2) 23px, rgba(200,168,130,0.2) 24px
+    );
+  background-size: 100% 24px;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.04);
+}
+.sketch-area svg { width: 100%; max-width: 280px; height: auto; }
+.sketch-empty {
+  text-align: center;
+  color: var(--beige);
+  font-size: 0.82rem;
+  font-style: italic;
+  line-height: 2;
+}
+
+/* ── RESULT TEXT ── */
+.result-name {
+  font-family: 'Nanum Myeongjo', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--brown);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.result-desc {
+  font-size: 0.78rem;
+  color: var(--brown-light);
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+.trait {
+  font-size: 0.76rem;
+  color: var(--brown-light);
+  margin-bottom: 5px;
+  line-height: 1.6;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #FFF5EA;
+  border: 1px solid var(--beige-light);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 0.72rem;
+  color: var(--brown-light);
+  margin-bottom: 6px;
+  margin-right: 4px;
+}
+.tag-label { font-weight: 700; color: var(--brown); }
+
+/* ── SWATCHES ── */
+.swatch-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+.swatch-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.swatch {
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.13), 0 0 0 1px rgba(0,0,0,0.04);
+}
+.swatch-name { font-size: 0.62rem; color: var(--brown-light); text-align: center; max-width: 60px; line-height: 1.3; }
+
+/* ── BUTTONS ── */
+.btn-pick {
+  width: 100%;
+  padding: 15px;
+  background: var(--pink);
+  border: none;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  color: white;
+  cursor: pointer;
+  font-family: 'Nanum Myeongjo', serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transition: all 0.18s;
+  box-shadow: 0 4px 0 #b85e70, 0 6px 16px rgba(212,120,138,0.3);
+  margin-top: 8px;
+  position: relative;
+  top: 0;
+}
+.btn-pick:active {
+  top: 3px;
+  box-shadow: 0 1px 0 #b85e70, 0 2px 8px rgba(212,120,138,0.2);
+}
+.btn-pick:disabled {
+  background: var(--beige);
+  box-shadow: 0 4px 0 #a89070;
+  cursor: not-allowed;
+}
+
+/* ── SAVE SECTION ── */
+.save-card { position: relative; margin-top: 10px; }
+.save-body {
+  background: var(--paper);
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(92,56,32,0.08);
+}
+.save-title {
+  font-family: 'Nanum Myeongjo', serif;
+  font-size: 1rem;
+  color: var(--brown);
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+.save-desc {
+  font-size: 0.74rem;
+  color: var(--brown-light);
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+.btn-row { display: flex; gap: 10px; }
+.btn-secondary {
+  flex: 1; padding: 14px;
+  background: var(--paper2);
+  border: 1.5px solid var(--beige);
+  border-radius: 50px;
+  font-size: 0.84rem;
+  color: var(--brown);
+  cursor: pointer;
+  font-family: 'Nanum Gothic', sans-serif;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  box-shadow: 0 3px 0 #C8A882, 0 4px 10px rgba(92,56,32,0.07);
+  position: relative; top: 0;
+  transition: all 0.15s;
+}
+.btn-secondary:active { top: 2px; box-shadow: 0 1px 0 #C8A882; }
+.btn-primary {
+  flex: 1; padding: 14px;
+  background: var(--pink);
+  border: none;
+  border-radius: 50px;
+  font-size: 0.84rem;
+  color: white;
+  cursor: pointer;
+  font-family: 'Nanum Gothic', sans-serif;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  box-shadow: 0 4px 0 #b85e70, 0 6px 14px rgba(212,120,138,0.3);
+  position: relative; top: 0;
+  transition: all 0.15s;
+}
+.btn-primary:active { top: 3px; box-shadow: 0 1px 0 #b85e70; }
+.btn-primary:disabled {
+  background: var(--beige);
+  box-shadow: 0 3px 0 #a89070;
+  cursor: not-allowed;
+}
+.save-status { font-size: 0.74rem; color: var(--pink); margin-top: 12px; min-height: 18px; }
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.spinning { animation: pulse 0.7s ease infinite; }
+
+/* ── SAVE PREVIEW (hidden) ── */
+#save-preview { position: fixed; left: -9999px; top: 0; width: 360px; background: #F0E6D6; font-family: 'Nanum Gothic', sans-serif; padding: 28px 22px; }
+.sp-header { text-align: center; margin-bottom: 16px; }
+.sp-title { font-family: 'Nanum Myeongjo', serif; font-size: 1.4rem; font-weight: 800; color: #5C3820; }
+.sp-date { font-size: 0.72rem; color: #9B7050; margin-top: 3px; }
+.sp-section { background: #FDF8F0; border-radius: 4px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid #E8D0B4; }
+.sp-label { font-size: 0.65rem; font-weight: 700; color: #9B7050; letter-spacing: 0.08em; margin-bottom: 6px; }
+.sp-value { font-family: 'Nanum Myeongjo', serif; font-size: 1rem; font-weight: 700; color: #5C3820; margin-bottom: 4px; }
+.sp-sub { font-size: 0.72rem; color: #9B7050; }
+.sp-swatches { display: flex; gap: 8px; margin-top: 8px; }
+.sp-swatch { width: 30px; height: 30px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+.sp-footer { text-align: center; font-size: 0.68rem; color: #9B7050; margin-top: 14px; font-style: italic; }
+```
+
   </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-title">오늘의 다꾸 뽑기 <span>♡</span></div>
-  <div class="header-sub">오늘은 어떤 다꾸를 해볼까요?</div>
+  <span class="header-sparkle">✦ ✦ ✦</span>
+  <div class="header-title">오늘의 다꾸 뽑기</div>
+  <div class="header-sub">오늘은 어떤 다꾸를 해볼까요? 🌸<br>랜덤으로 오늘의 꾸미기 조합을 뽑아보세요.</div>
 </div>
 
 <div class="main">
@@ -88,51 +377,84 @@
   <!-- COLOR -->
 
   <div class="paper-card">
-    <div class="tape tape-pink" style="width:48px;top:-7px;left:20px;transform:rotate(-2deg);"></div>
-    <div class="hole" style="top:28px"></div><div class="hole" style="top:48px"></div><div class="hole" style="top:68px"></div>
-    <div style="padding-left:18px;">
-      <div class="card-label">🎨 오늘의 컬러</div>
-      <div id="color-result"><div class="sketch-empty">버튼을 눌러 오늘의 컬러를 뽑아봐요!</div></div>
-      <button class="btn-pick" id="color-btn" onclick="pick('color')">✨ 컬러 뽑기</button>
+    <div class="tape tape-check" style="width:56px;top:-9px;left:18px;transform:rotate(-3deg);"></div>
+    <svg class="torn-top" viewBox="0 0 400 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,18 L0,8 Q10,4 20,9 Q30,14 42,7 Q54,2 66,8 Q78,14 90,6 Q102,0 114,7 Q126,13 138,5 Q150,0 162,8 Q174,14 186,6 Q198,0 210,8 Q222,14 234,5 Q246,0 258,8 Q270,14 282,6 Q294,0 306,8 Q318,14 330,5 Q342,0 354,8 Q366,14 378,6 Q390,1 400,8 L400,18 Z" fill="#FDF8F0"/>
+    </svg>
+    <div class="card-body">
+      <div class="holes"><div class="hole"></div><div class="hole"></div><div class="hole"></div></div>
+      <div class="card-inner">
+        <div class="card-label">🎨 오늘의 컬러</div>
+        <div id="color-result"><div class="sketch-empty">버튼을 눌러 오늘의 컬러를 뽑아봐요!</div></div>
+        <button class="btn-pick" id="color-btn" onclick="pick('color')">✨ 컬러 뽑기</button>
+      </div>
     </div>
+    <svg class="torn-bottom" viewBox="0 0 400 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 L0,10 Q10,14 22,9 Q34,4 46,11 Q58,16 70,9 Q82,3 94,10 Q106,16 118,8 Q130,2 142,10 Q154,16 166,8 Q178,2 190,10 Q202,16 214,8 Q226,2 238,10 Q250,16 262,8 Q274,2 286,10 Q298,16 310,8 Q322,2 334,10 Q346,16 358,8 Q370,2 382,10 Q394,15 400,10 L400,0 Z" fill="#FDF8F0"/>
+    </svg>
   </div>
 
   <!-- LAYOUT -->
 
   <div class="paper-card">
-    <div class="tape tape-beige" style="width:48px;top:-7px;right:20px;transform:rotate(2deg);"></div>
-    <div class="hole" style="top:28px"></div><div class="hole" style="top:48px"></div><div class="hole" style="top:68px"></div>
-    <div style="padding-left:18px;">
-      <div class="card-label">📐 스케치 미리보기</div>
-      <div class="sketch-area" id="layout-sketch"><div class="sketch-empty">버튼을 눌러<br>오늘의 레이아웃을 뽑아봐요!</div></div>
-      <div id="layout-result"></div>
-      <button class="btn-pick" id="layout-btn" onclick="pick('layout')">✨ 레이아웃 뽑기</button>
+    <div class="tape tape-plain" style="width:52px;top:-9px;right:22px;transform:rotate(2deg);"></div>
+    <div class="tape tape-check" style="width:40px;top:-8px;left:50px;transform:rotate(-1deg);"></div>
+    <svg class="torn-top" viewBox="0 0 400 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,18 L0,9 Q12,3 24,9 Q36,15 48,7 Q60,1 72,8 Q84,15 96,7 Q108,1 120,8 Q132,15 144,6 Q156,0 168,8 Q180,15 192,7 Q204,1 216,8 Q228,15 240,7 Q252,1 264,9 Q276,15 288,7 Q300,1 312,8 Q324,15 336,6 Q348,0 360,8 Q372,15 384,7 Q394,2 400,8 L400,18 Z" fill="#FDF8F0"/>
+    </svg>
+    <div class="card-body">
+      <div class="holes"><div class="hole"></div><div class="hole"></div><div class="hole"></div></div>
+      <div class="card-inner">
+        <div class="card-label">📐 스케치 미리보기</div>
+        <div class="sketch-area" id="layout-sketch"><div class="sketch-empty">버튼을 눌러<br>오늘의 레이아웃을 뽑아봐요!</div></div>
+        <div id="layout-result"></div>
+        <button class="btn-pick" id="layout-btn" onclick="pick('layout')">✨ 레이아웃 뽑기</button>
+      </div>
     </div>
+    <svg class="torn-bottom" viewBox="0 0 400 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 L0,8 Q14,14 28,8 Q42,3 56,10 Q70,16 84,8 Q98,2 112,9 Q126,15 140,7 Q154,1 168,9 Q182,15 196,7 Q210,1 224,9 Q238,15 252,7 Q266,1 280,9 Q294,15 308,7 Q322,1 336,9 Q350,15 364,7 Q378,2 400,9 L400,0 Z" fill="#FDF8F0"/>
+    </svg>
   </div>
 
   <!-- THEME -->
 
   <div class="paper-card">
-    <div class="tape tape-pink" style="width:48px;top:-7px;left:20px;transform:rotate(-1deg);"></div>
-    <div class="hole" style="top:28px"></div><div class="hole" style="top:48px"></div><div class="hole" style="top:68px"></div>
-    <div style="padding-left:18px;">
-      <div class="card-label">🌿 오늘의 무드</div>
-      <div id="theme-result"><div class="sketch-empty">버튼을 눌러 오늘의 무드를 뽑아봐요!</div></div>
-      <button class="btn-pick" id="theme-btn" onclick="pick('theme')">✨ 무드 뽑기</button>
+    <div class="tape tape-check" style="width:50px;top:-9px;left:24px;transform:rotate(-2deg);"></div>
+    <svg class="torn-top" viewBox="0 0 400 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,18 L0,7 Q8,2 18,8 Q30,14 44,6 Q56,0 68,8 Q80,14 94,6 Q106,0 120,8 Q134,14 148,5 Q160,0 172,8 Q184,14 198,6 Q210,0 222,8 Q234,14 248,6 Q260,0 272,8 Q284,14 298,6 Q310,0 322,8 Q334,14 348,5 Q360,0 374,8 Q386,14 400,7 L400,18 Z" fill="#FDF8F0"/>
+    </svg>
+    <div class="card-body">
+      <div class="holes"><div class="hole"></div><div class="hole"></div><div class="hole"></div></div>
+      <div class="card-inner">
+        <div class="card-label">🌿 오늘의 무드</div>
+        <div id="theme-result"><div class="sketch-empty">버튼을 눌러 오늘의 무드를 뽑아봐요!</div></div>
+        <button class="btn-pick" id="theme-btn" onclick="pick('theme')">✨ 무드 뽑기</button>
+      </div>
     </div>
+    <svg class="torn-bottom" viewBox="0 0 400 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 L0,9 Q12,15 26,8 Q40,2 54,10 Q68,16 82,8 Q96,2 110,10 Q124,16 138,7 Q152,1 166,9 Q180,15 194,7 Q208,1 222,9 Q236,15 250,7 Q264,1 278,9 Q292,15 306,7 Q320,1 334,9 Q348,15 362,7 Q376,2 400,9 L400,0 Z" fill="#FDF8F0"/>
+    </svg>
   </div>
 
   <!-- SAVE -->
 
   <div class="save-card">
-    <div class="tape tape-beige" style="width:48px;top:-7px;left:20px;transform:rotate(-2deg);"></div>
-    <div class="save-title">🌸 오늘의 다꾸 저장하기</div>
-    <div class="save-desc">세 가지를 모두 뽑으면<br>이미지로 저장할 수 있어요!</div>
-    <div class="btn-row">
-      <button class="btn-secondary" onclick="resetAll()">↺ 다시뽑기</button>
-      <button class="btn-primary" id="save-btn" onclick="saveImage()" disabled>🔖 이미지 저장</button>
+    <div class="tape tape-plain" style="width:44px;top:-9px;left:20px;transform:rotate(-2deg);"></div>
+    <svg class="torn-top" viewBox="0 0 400 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,18 L0,8 Q10,4 20,9 Q30,14 42,7 Q54,2 66,8 Q78,14 90,6 Q102,0 114,7 Q126,13 138,5 Q150,0 162,8 Q174,14 186,6 Q198,0 210,8 Q222,14 234,5 Q246,0 258,8 Q270,14 282,6 Q294,0 306,8 Q318,14 330,5 Q342,0 354,8 Q366,14 378,6 Q390,1 400,8 L400,18 Z" fill="#FDF8F0"/>
+    </svg>
+    <div class="save-body">
+      <div class="save-title">🌸 오늘의 다꾸 저장하기</div>
+      <div class="save-desc">세 가지를 모두 뽑으면<br>이미지로 저장할 수 있어요!</div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="resetAll()">↺ 다시뽑기</button>
+        <button class="btn-primary" id="save-btn" onclick="saveImage()" disabled>🔖 이미지 저장</button>
+      </div>
+      <div class="save-status" id="save-status"></div>
     </div>
-    <div class="save-status" id="save-status"></div>
+    <svg class="torn-bottom" viewBox="0 0 400 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 L0,10 Q10,14 22,9 Q34,4 46,11 Q58,16 70,9 Q82,3 94,10 Q106,16 118,8 Q130,2 142,10 Q154,16 166,8 Q178,2 190,10 Q202,16 214,8 Q226,2 238,10 Q250,16 262,8 Q274,2 286,10 Q298,16 310,8 Q322,2 334,10 Q346,16 358,8 Q370,2 382,10 Q394,15 400,10 L400,0 Z" fill="#FDF8F0"/>
+    </svg>
   </div>
 
 </div>
