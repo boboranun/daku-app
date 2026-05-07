@@ -164,6 +164,21 @@ footer {
 }
 
 .result-inner { width: 100%; }
+
+.sketch-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.sketch-wrap svg {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  border-radius: 8px;
+}
 ```
 
   </style>
@@ -236,21 +251,150 @@ footer {
     },
     layout: {
       items: [
-        "사진을 왼쪽에 크게, 오른쪽엔 글씨와 스티커",
-        "상단에 제목 크게, 하단에 사진 3장 나란히",
-        "대각선으로 요소 배치하기",
-        "중앙에 사진 하나, 주변을 스티커로 가득 채우기",
-        "두 페이지를 하나처럼 — 양쪽에 걸쳐서 꾸미기",
-        "격자(그리드) 형식으로 칸칸이 나눠서 채우기",
-        "여백을 많이 두는 미니멀 레이아웃",
-        "스크랩북처럼 겹겹이 레이어드하기",
-        "상단 1/3은 제목 존, 하단 2/3은 사진 존",
-        "모서리 4개에 스티커, 가운데에 텍스트",
+        {
+          name: "사진 왼쪽 크게, 오른쪽엔 글씨와 스티커",
+          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
+            <rect x="10" y="10" width="90" height="120" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
+            <text x="55" y="72" text-anchor="middle" font-size="22" fill="#C7614A">📷</text>
+            <rect x="112" y="10" width="78" height="30" rx="4" fill="#D4E8D0" stroke="#6B7B3A" stroke-width="1"/>
+            <text x="151" y="30" text-anchor="middle" font-size="10" fill="#3B2A1A">글씨</text>
+            <rect x="112" y="50" width="35" height="35" rx="4" fill="#F5C5C5" stroke="#C7614A" stroke-width="1"/>
+            <text x="129" y="73" text-anchor="middle" font-size="16" fill="#C7614A">🌸</text>
+            <rect x="155" y="50" width="35" height="35" rx="4" fill="#C9B8E8" stroke="#8B6F5A" stroke-width="1"/>
+            <text x="172" y="73" text-anchor="middle" font-size="16">⭐</text>
+            <rect x="112" y="95" width="78" height="35" rx="4" fill="#FFE4B5" stroke="#C7614A" stroke-width="1"/>
+            <text x="151" y="117" text-anchor="middle" font-size="10" fill="#3B2A1A">메모 / 스티커</text>
+          </svg>`
+        },
+        {
+          name: "상단 제목 크게, 하단 사진 3장 나란히",
+          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
+            <rect x="10" y="10" width="180" height="40" rx="4" fill="#D4E8D0" stroke="#6B7B3A" stroke-width="1.5"/>
+            <text x="100" y="35" text-anchor="middle" font-size="13" fill="#3B2A1A" font-weight="bold">제 목</text>
+            <rect x="10" y="62" width="54" height="68" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
+            <text x="37" y="100" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
+            <rect x="73" y="62" width="54" height="68" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
+            <text x="100" y="100" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
+            <rect x="136" y="62" width="54" height="68" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
+            <text x="163" y="100" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
+          </svg>`
+        },
+        {
+          name: "대각선으로 요소 배치하기",
+          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
+            <rect x="8" y="8" width="70" height="55" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
+            <text x="43" y="40" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
+            <rect x="65" y="45" width="50" height="40" rx="4" fill="#C9B8E8" stroke="#8B6F5A" stroke-width="1"/>
+            <text x="90" y="70" text-anchor="middle" font-size="11" fill="#3B2A1A">글씨</text>
+            <rect x="115" y="75" width="75" height="55" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
+            <text x="152" y="107" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
+            <text x="30" y="110" text-anchor="middle" font-size="20">🌸</text>
+            <text x="170" y="30" text-anchor="middle" font-size="20">⭐</text>
+          </svg>`
+        },
+        {
+          name: "중앙 사진, 주변 스티커 가득",
+          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
+            <rect x="55" y="30" width="90" height="80" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
+            <text x="100" y="78" text-anchor="middle" font-size="28" fill="#C7614A">📷</text>
+            <text x="20" y="30" font-size="18">🌸</text>
+            <text x="165" y="30" font-size="18">⭐</text>
+            <text x="15" y="80" font-size="18">🍂</text>
+            <text x="168" y="85" font-size="18">🌿</text>
+            <text x="20" y="128" font-size="18">✨</text>
+            <text x="163" y="128" font-size="18">🎀</text>
+            <text x="88" y="18" font-size="18">🌙</text>
+            <text x="88" y="136" font-size="18">💫</text>
+          </svg>`
+        },
+        {
+          name: "두 페이지를 하나처럼 — 양쪽에 걸쳐서",
+          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
+            <line x1="100" y1="0" x2="100" y2="140" stroke="#D4B49A" stroke-width="1" stroke-dasharray="4,3"/>
+            <rect x="8" y="15" width="80" height="55" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
+            <text x="48" y="48" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
+            <rect x="112" y="15" width="80" height="55" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
+            <text x="152" y="48" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
+            <rect x="30" y="82" width="140" height="45" rx="4" fill="#D4E8D0" stroke="#6B7B3A" stroke-width="1.5"/>
+            <text x="100" y="110" text-anchor="middle" font-size="11" fill="#3B2A1A">양쪽에 걸친 글씨/데코</text>
+          </svg>`
+        },
+        {
+          name: "격자(그리드) 형식으로 칸칸이 채우기",
+          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
+            <rect x="10" y="10" width="55" height="55" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
+            <text x="37" y="42" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
+            <rect x="73" y="10" width="55" height="55" rx="4" fill="#C9B8E8" stroke="#8B6F5A" stroke-width="1"/>
+            <text x="100" y="42" text-anchor="middle" font-size="11" fill="#3B2A1A">글씨</text>
+            <rect x="136" y="10" width="54" height="55" rx="4" fill="#FFE4B5" stroke="#C7614A" stroke-width="1"/>
+            <text x="163" y="42" text-anchor="middle" font-size="20">🌸</text>
+            <rect x="10" y="73" width="55" height="57" rx="4" fill="#D4E8D0" stroke="#6B7B3A" stroke-width="1"/>
+            <text x="37" y="106" text-anchor="middle" font-size="11" fill="#3B2A1A">메모</text>
+            <rect x="73" y="73" width="55" height="57" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
+            <text x="100" y="106" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
+            <rect x="136" y="73" width="54" height="57" rx="4" fill="#F5C5C5" stroke="#C7614A" stroke-width="1"/>
+            <text x="163" y="106" text-anchor="middle" font-size="20">⭐</text>
+          </svg>`
+        },
+        {
+          name: "여백을 많이 두는 미니멀 레이아웃",
+          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
+            <rect x="55" y="20" width="90" height="65" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
+            <text x="100" y="60" text-anchor="middle" font-size="24" fill="#C7614A">📷</text>
+            <text x="100" y="105" text-anchor="middle" font-size="10" fill="#8B6F5A">— 한 줄 글씨 —</text>
+            <text x="100" y="125" text-anchor="middle" font-size="9" fill="#B8977E">날짜</text>
+          </svg>`
+        },
+        {
+          name: "스크랩북처럼 겹겹이 레이어드하기",
+          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
+            <rect x="20" y="20" width="110" height="80" rx="3" fill="#FFE4B5" stroke="#C7614A" stroke-width="1" transform="rotate(-5 20 20)"/>
+            <rect x="35" y="15" width="110" height="80" rx="3" fill="#D4E8D0" stroke="#6B7B3A" stroke-width="1" transform="rotate(3 35 15)"/>
+            <rect x="45" y="25" width="100" height="75" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
+            <text x="95" y="68" text-anchor="middle" font-size="22" fill="#C7614A">📷</text>
+            <text x="150" y="110" font-size="18">🌸</text>
+            <text x="15" y="120" font-size="16">✨</text>
+          </svg>`
+        },
+        {
+          name: "상단 1/3 제목 존, 하단 2/3 사진 존",
+          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
+            <rect x="10" y="10" width="180" height="38" rx="4" fill="#D4E8D0" stroke="#6B7B3A" stroke-width="1.5"/>
+            <text x="100" y="34" text-anchor="middle" font-size="13" fill="#3B2A1A" font-weight="bold">✦ 제 목 존 ✦</text>
+            <rect x="10" y="57" width="180" height="73" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
+            <text x="100" y="100" text-anchor="middle" font-size="28" fill="#C7614A">📷</text>
+          </svg>`
+        },
+        {
+          name: "모서리 4개에 스티커, 가운데 텍스트",
+          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
+            <text x="12" y="35" font-size="24">🌸</text>
+            <text x="158" y="35" font-size="24">⭐</text>
+            <text x="12" y="128" font-size="24">✨</text>
+            <text x="158" y="128" font-size="24">🎀</text>
+            <rect x="50" y="35" width="100" height="70" rx="6" fill="#FFF0E8" stroke="#D4B49A" stroke-width="1" stroke-dasharray="4,3"/>
+            <text x="100" y="68" text-anchor="middle" font-size="11" fill="#3B2A1A">오늘의 글씨</text>
+            <text x="100" y="85" text-anchor="middle" font-size="10" fill="#8B6F5A">날짜 / 한마디</text>
+          </svg>`
+        },
       ],
-      tip: (item) => `오늘의 레이아웃: "${item}" — 먼저 연필로 대략 스케치해보고 시작하면 훨씬 쉬워요! 📝`,
+      tip: (item) => `먼저 연필로 대략 스케치해보고 시작하면 훨씬 쉬워요! 📝`,
       render: (item) => `
         <div class="result-inner">
-          <p class="result-name">${item}</p>
+          <div class="sketch-wrap">
+            ${item.svg}
+            <p class="result-name" style="text-align:center">${item.name}</p>
+          </div>
           <div class="tip-box">
             <span class="tip-label">💡 팁</span>
             <p class="tip-text">${data.layout.tip(item)}</p>
