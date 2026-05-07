@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>다꾸 뽑기 🎨</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+```
+body {
+  min-height: 100vh;
+  background: #FDF6EC;
+  font-family: 'Georgia', serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  text-align: center;
+  padding: 48px 24px 16px;
+}
+
+.deco { font-size: 20px; color: #C7614A; margin: 6px 0; }
+
+h1 {
+  font-size: clamp(2rem, 6vw, 3rem);
+  color: #3B2A1A;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+  margin: 8px 0;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #8B6F5A;
+  font-style: italic;
+  margin: 4px 0 8px;
+}
+
+main {
+  width: 100%;
+  max-width: 480px;
+  padding: 16px 20px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card {
+  background: rgba(255,255,255,0.75);
+  border-radius: 20px;
+  border: 1.5px solid #E8D5C0;
+  padding: 28px 24px 24px;
+  box-shadow: 0 4px 24px rgba(199,97,74,0.08);
+}
+
+.card-title {
+  font-size: 1.05rem;
+  color: #3B2A1A;
+  font-weight: normal;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+}
+
+.result-box {
+  min-height: 110px;
+  background: #FFF8F0;
+  border-radius: 14px;
+  border: 1px dashed #D4B49A;
+  padding: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s;
+}
+
+.result-box.empty { opacity: 0.4; }
+
+.empty-text {
+  color: #B8977E;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.result-name {
+  font-size: 1rem;
+  color: #3B2A1A;
+  font-weight: bold;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.result-desc {
+  font-size: 0.85rem;
+  color: #8B6F5A;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.swatch-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.tip-box {
+  background: rgba(199,97,74,0.07);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-top: 8px;
+}
+
+.tip-label {
+  font-size: 0.75rem;
+  color: #C7614A;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.tip-text {
+  font-size: 0.82rem;
+  color: #5C3D2A;
+  line-height: 1.6;
+}
+
+.btn {
+  width: 100%;
+  padding: 14px;
+  background: #C7614A;
+  color: #FFF8F0;
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  font-family: inherit;
+  box-shadow: 0 4px 16px rgba(199,97,74,0.25);
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn:active { transform: scale(0.98); }
+.btn:disabled { background: #B8977E; cursor: not-allowed; }
+
+footer {
+  text-align: center;
+  padding: 0 0 32px;
+  color: #B8977E;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.result-inner { width: 100%; }
+```
+
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="deco">✦</div>
+  <h1>다꾸 뽑기</h1>
+  <p class="subtitle">막힐 때 눌러봐요 — 오늘의 다꾸를 알려드려요</p>
+  <div class="deco">✦</div>
+</header>
+
+<main>
+  <!-- 색상 -->
+  <div class="card">
+    <h2 class="card-title">🎨 색상 뽑기</h2>
+    <div class="result-box empty" id="color-box">
+      <span class="empty-text">버튼을 눌러 뽑아봐요!</span>
+    </div>
+    <button class="btn" onclick="pick('color')">✨ 뽑기</button>
+  </div>
+
+  <!-- 레이아웃 -->
+
+  <div class="card">
+    <h2 class="card-title">📐 레이아웃 뽑기</h2>
+    <div class="result-box empty" id="layout-box">
+      <span class="empty-text">버튼을 눌러 뽑아봐요!</span>
+    </div>
+    <button class="btn" onclick="pick('layout')">✨ 뽑기</button>
+  </div>
+
+  <!-- 테마 -->
+
+  <div class="card">
+    <h2 class="card-title">🌿 테마/무드 뽑기</h2>
+    <div class="result-box empty" id="theme-box">
+      <span class="empty-text">버튼을 눌러 뽑아봐요!</span>
+    </div>
+    <button class="btn" onclick="pick('theme')">✨ 뽑기</button>
+  </div>
+</main>
+
+<footer>오늘도 즐거운 다꾸 하세요 🌸</footer>
+
+<script>
+  const data = {
+    color: {
+      items: [
+        { name: "베이지 + 테라코타 + 크림", hex: ["#F5ECD7", "#C7614A", "#FFF8F0"] },
+        { name: "라벤더 + 민트 + 화이트", hex: ["#C9B8E8", "#B2E4D8", "#FFFFFF"] },
+        { name: "머스타드 + 올리브 + 브라운", hex: ["#E8C840", "#6B7B3A", "#7B4F2E"] },
+        { name: "피치 + 코랄 + 골드", hex: ["#FFCBA4", "#FF6B6B", "#FFD700"] },
+        { name: "네이비 + 크림 + 버건디", hex: ["#1B2A4A", "#FFF8F0", "#800020"] },
+        { name: "세이지 + 화이트 + 카키", hex: ["#B2C5A8", "#FFFFFF", "#8B8B6B"] },
+        { name: "핑크 + 라일락 + 실버", hex: ["#FFB7C5", "#C8A4D4", "#C0C0C0"] },
+        { name: "오렌지 + 옐로우 + 아이보리", hex: ["#FF8C42", "#FFD166", "#FFF3E0"] },
+      ],
+      tip: (item) => `오늘은 ${item.name} 조합으로 꾸며봐요! 메인 컬러를 가장 많이, 포인트 컬러는 살짝만 써보세요 ✨`,
+      render: (item) => `
+        <div class="result-inner">
+          <div class="swatch-row">${item.hex.map(h => `<div class="swatch" style="background:${h}"></div>`).join('')}</div>
+          <p class="result-name">${item.name}</p>
+          <div class="tip-box">
+            <span class="tip-label">💡 팁</span>
+            <p class="tip-text">${data.color.tip(item)}</p>
+          </div>
+        </div>`
+    },
+    layout: {
+      items: [
+        "사진을 왼쪽에 크게, 오른쪽엔 글씨와 스티커",
+        "상단에 제목 크게, 하단에 사진 3장 나란히",
+        "대각선으로 요소 배치하기",
+        "중앙에 사진 하나, 주변을 스티커로 가득 채우기",
+        "두 페이지를 하나처럼 — 양쪽에 걸쳐서 꾸미기",
+        "격자(그리드) 형식으로 칸칸이 나눠서 채우기",
+        "여백을 많이 두는 미니멀 레이아웃",
+        "스크랩북처럼 겹겹이 레이어드하기",
+        "상단 1/3은 제목 존, 하단 2/3은 사진 존",
+        "모서리 4개에 스티커, 가운데에 텍스트",
+      ],
+      tip: (item) => `오늘의 레이아웃: "${item}" — 먼저 연필로 대략 스케치해보고 시작하면 훨씬 쉬워요! 📝`,
+      render: (item) => `
+        <div class="result-inner">
+          <p class="result-name">${item}</p>
+          <div class="tip-box">
+            <span class="tip-label">💡 팁</span>
+            <p class="tip-text">${data.layout.tip(item)}</p>
+          </div>
+        </div>`
+    },
+    theme: {
+      items: [
+        { name: "Cottagecore 🌾", desc: "들꽃, 버섯, 자연 소재 느낌" },
+        { name: "빈티지 레트로 📻", desc: "바랜 색감, 클래식한 폰트, 오래된 감성" },
+        { name: "미니멀 모던 🤍", desc: "여백, 단순함, 깔끔한 선" },
+        { name: "Y2K 반짝이 💿", desc: "홀로그램, 메탈릭, 2000년대 감성" },
+        { name: "아카데믹 🎓", desc: "책, 필기, 도서관, 지적인 무드" },
+        { name: "동화 속 세계 🧚", desc: "파스텔, 별, 달, 마법 같은 느낌" },
+        { name: "도시 감성 🏙️", desc: "모노톤, 신문지 스크랩, 어반 무드" },
+        { name: "가을 낙엽 🍂", desc: "브라운, 오렌지, 따뜻하고 포근한 느낌" },
+        { name: "바다 여름 🌊", desc: "블루, 조개, 샌드, 시원한 느낌" },
+        { name: "카페 감성 ☕", desc: "크래프트지, 커피, 따뜻한 갈색 톤" },
+      ],
+      tip: (item) => `오늘의 테마는 "${item.name}"! ${item.desc}. 이 분위기에 맞는 스티커나 마테를 골라보세요 🎨`,
+      render: (item) => `
+        <div class="result-inner">
+          <p class="result-name">${item.name}</p>
+          <p class="result-desc">${item.desc}</p>
+          <div class="tip-box">
+            <span class="tip-label">💡 팁</span>
+            <p class="tip-text">${data.theme.tip(item)}</p>
+          </div>
+        </div>`
+    }
+  };
+
+  function pick(key) {
+    const box = document.getElementById(`${key}-box`);
+    const btn = box.nextElementSibling;
+    btn.disabled = true;
+    btn.textContent = '🎲 뽑는 중...';
+    box.classList.add('empty');
+    box.innerHTML = '<span class="empty-text">🎲 뽑는 중...</span>';
+
+    setTimeout(() => {
+      const items = data[key].items;
+      const item = items[Math.floor(Math.random() * items.length)];
+      box.innerHTML = data[key].render(item);
+      box.classList.remove('empty');
+      btn.disabled = false;
+      btn.textContent = '🔄 다시 뽑기';
+    }, 700);
+  }
+</script>
+
+</body>
+</html>
