@@ -2,448 +2,344 @@
 
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>다꾸 뽑기 🎨</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>오늘의 다꾸 뽑기 🌸</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
+    :root {
+      --bg: #F5EDE0;
+      --paper: #FDF6EC;
+      --paper2: #FFF9F2;
+      --pink: #E8899A;
+      --pink-light: #F5C5CE;
+      --brown: #6B4226;
+      --brown-light: #A07850;
+      --beige: #D4B896;
+      --beige-light: #EDD9C0;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-```
-body {
-  min-height: 100vh;
-  background: #FDF6EC;
-  font-family: 'Georgia', serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-header {
-  text-align: center;
-  padding: 48px 24px 16px;
-}
-
-.deco { font-size: 20px; color: #C7614A; margin: 6px 0; }
-
-h1 {
-  font-size: clamp(2rem, 6vw, 3rem);
-  color: #3B2A1A;
-  font-weight: normal;
-  letter-spacing: 0.05em;
-  margin: 8px 0;
-}
-
-.subtitle {
-  font-size: 0.95rem;
-  color: #8B6F5A;
-  font-style: italic;
-  margin: 4px 0 8px;
-}
-
-main {
-  width: 100%;
-  max-width: 480px;
-  padding: 16px 20px 48px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.card {
-  background: rgba(255,255,255,0.75);
-  border-radius: 20px;
-  border: 1.5px solid #E8D5C0;
-  padding: 28px 24px 24px;
-  box-shadow: 0 4px 24px rgba(199,97,74,0.08);
-}
-
-.card-title {
-  font-size: 1.05rem;
-  color: #3B2A1A;
-  font-weight: normal;
-  letter-spacing: 0.04em;
-  margin-bottom: 16px;
-}
-
-.result-box {
-  min-height: 110px;
-  background: #FFF8F0;
-  border-radius: 14px;
-  border: 1px dashed #D4B49A;
-  padding: 16px;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.4s;
-}
-
-.result-box.empty { opacity: 0.4; }
-
-.empty-text {
-  color: #B8977E;
-  font-size: 0.9rem;
-  font-style: italic;
-}
-
-.result-name {
-  font-size: 1rem;
-  color: #3B2A1A;
-  font-weight: bold;
-  margin-bottom: 8px;
-  line-height: 1.5;
-}
-
-.result-desc {
-  font-size: 0.85rem;
-  color: #8B6F5A;
-  font-style: italic;
-  margin-bottom: 8px;
-}
-
-.swatch-row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.swatch {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.8);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.tip-box {
-  background: rgba(199,97,74,0.07);
-  border-radius: 10px;
-  padding: 10px 12px;
-  margin-top: 8px;
-}
-
-.tip-label {
-  font-size: 0.75rem;
-  color: #C7614A;
-  font-weight: bold;
-  letter-spacing: 0.05em;
-  display: block;
-  margin-bottom: 4px;
-}
-
-.tip-text {
-  font-size: 0.82rem;
-  color: #5C3D2A;
-  line-height: 1.6;
-}
-
-.btn {
-  width: 100%;
-  padding: 14px;
-  background: #C7614A;
-  color: #FFF8F0;
-  border: none;
-  border-radius: 14px;
-  font-size: 1rem;
-  cursor: pointer;
-  letter-spacing: 0.05em;
-  font-family: inherit;
-  box-shadow: 0 4px 16px rgba(199,97,74,0.25);
-  transition: background 0.2s, transform 0.1s;
-}
-
-.btn:active { transform: scale(0.98); }
-.btn:disabled { background: #B8977E; cursor: not-allowed; }
-
-footer {
-  text-align: center;
-  padding: 0 0 32px;
-  color: #B8977E;
-  font-size: 0.85rem;
-  font-style: italic;
-}
-
-.result-inner { width: 100%; }
-
-.sketch-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  gap: 10px;
-}
-
-.sketch-wrap svg {
-  width: 100%;
-  max-width: 220px;
-  height: auto;
-  border-radius: 8px;
-}
-```
-
+    body {
+      background: var(--bg);
+      font-family: 'Nanum Gothic', sans-serif;
+      min-height: 100vh;
+      background-image: radial-gradient(circle at 20% 20%, rgba(232,137,154,0.08) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(212,184,150,0.1) 0%, transparent 50%);
+    }
+    .header { text-align: center; padding: 40px 20px 20px; }
+    .header-title { font-family: 'Nanum Myeongjo', serif; font-size: 1.9rem; font-weight: 800; color: var(--brown); margin-bottom: 6px; }
+    .header-title span { color: var(--pink); }
+    .header-sub { font-size: 0.82rem; color: var(--brown-light); letter-spacing: 0.03em; }
+    .main { max-width: 420px; margin: 0 auto; padding: 0 18px 120px; display: flex; flex-direction: column; gap: 20px; }
+    .paper-card { background: var(--paper); border-radius: 4px; padding: 22px 20px 20px; position: relative; box-shadow: 2px 3px 0px rgba(107,66,38,0.08), 0 6px 20px rgba(107,66,38,0.1); }
+    .tape { position: absolute; height: 16px; border-radius: 2px; opacity: 0.75; }
+    .tape-pink { background: repeating-linear-gradient(90deg, #F2C4C4 0px, #F2C4C4 6px, #E8A8A8 6px, #E8A8A8 12px); }
+    .tape-beige { background: repeating-linear-gradient(90deg, #D4C4A8 0px, #D4C4A8 6px, #C4B498 6px, #C4B498 12px); }
+    .hole { position: absolute; left: 10px; width: 7px; height: 7px; border-radius: 50%; background: var(--bg); border: 1px solid var(--beige-light); }
+    .card-label { display: inline-block; background: var(--beige-light); color: var(--brown); font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px; letter-spacing: 0.05em; }
+    .sketch-area { background: #FFFDF8; border: 1.5px solid var(--beige); border-radius: 4px; padding: 16px; margin-bottom: 14px; min-height: 200px; display: flex; align-items: center; justify-content: center; background-image: repeating-linear-gradient(transparent, transparent 23px, rgba(212,184,150,0.25) 23px, rgba(212,184,150,0.25) 24px); background-size: 100% 24px; }
+    .sketch-area svg { width: 100%; max-width: 280px; height: auto; }
+    .sketch-empty { text-align: center; color: var(--beige); font-size: 0.85rem; font-style: italic; line-height: 1.8; }
+    .result-name { font-family: 'Nanum Myeongjo', serif; font-size: 1.2rem; font-weight: 700; color: var(--brown); margin-bottom: 6px; }
+    .result-desc { font-size: 0.8rem; color: var(--brown-light); line-height: 1.7; margin-bottom: 10px; }
+    .trait { font-size: 0.78rem; color: var(--brown-light); margin-bottom: 5px; line-height: 1.5; }
+    .tag { display: inline-flex; align-items: center; gap: 4px; background: var(--paper2); border: 1px solid var(--beige-light); border-radius: 20px; padding: 4px 10px; font-size: 0.72rem; color: var(--brown-light); margin-bottom: 6px; }
+    .tag-label { font-weight: 700; color: var(--brown); }
+    .swatch-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+    .swatch-item { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .swatch { width: 52px; height: 52px; border-radius: 50%; border: 3px solid white; box-shadow: 0 3px 10px rgba(0,0,0,0.12); }
+    .swatch-name { font-size: 0.65rem; color: var(--brown-light); text-align: center; max-width: 60px; line-height: 1.3; }
+    .btn-pick { width: 100%; padding: 14px; background: var(--pink); border: none; border-radius: 50px; font-size: 0.95rem; color: white; cursor: pointer; font-family: 'Nanum Myeongjo', serif; font-weight: 700; letter-spacing: 0.05em; transition: all 0.2s; box-shadow: 0 4px 14px rgba(232,137,154,0.35); margin-top: 6px; }
+    .btn-pick:active { transform: scale(0.98); }
+    .btn-pick:disabled { background: var(--beige); box-shadow: none; cursor: not-allowed; }
+    .save-card { background: var(--paper); border-radius: 4px; padding: 22px 20px 20px; position: relative; box-shadow: 2px 3px 0px rgba(107,66,38,0.08), 0 6px 20px rgba(107,66,38,0.1); text-align: center; }
+    .save-title { font-family: 'Nanum Myeongjo', serif; font-size: 1rem; color: var(--brown); margin-bottom: 6px; font-weight: 700; }
+    .save-desc { font-size: 0.75rem; color: var(--brown-light); margin-bottom: 14px; line-height: 1.6; }
+    .btn-row { display: flex; gap: 10px; }
+    .btn-secondary { flex: 1; padding: 13px; background: var(--paper2); border: 1.5px solid var(--beige); border-radius: 50px; font-size: 0.85rem; color: var(--brown); cursor: pointer; font-family: 'Nanum Gothic', sans-serif; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 2px 8px rgba(107,66,38,0.08); }
+    .btn-primary { flex: 1; padding: 13px; background: var(--pink); border: none; border-radius: 50px; font-size: 0.85rem; color: white; cursor: pointer; font-family: 'Nanum Gothic', sans-serif; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 4px 14px rgba(232,137,154,0.4); }
+    .btn-primary:disabled { background: var(--beige); box-shadow: none; cursor: not-allowed; }
+    .save-status { font-size: 0.75rem; color: var(--pink); margin-top: 10px; min-height: 18px; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .spinning { animation: pulse 0.7s ease infinite; }
+    /* SAVE PREVIEW */
+    #save-preview { position: fixed; left: -9999px; top: 0; width: 360px; background: #F5EDE0; font-family: 'Nanum Gothic', sans-serif; padding: 28px 24px; }
+    .sp-header { text-align: center; margin-bottom: 16px; }
+    .sp-title { font-family: 'Nanum Myeongjo', serif; font-size: 1.4rem; font-weight: 800; color: #6B4226; }
+    .sp-date { font-size: 0.72rem; color: #A07850; margin-top: 3px; }
+    .sp-section { background: #FDF6EC; border-radius: 4px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid #EDD9C0; }
+    .sp-label { font-size: 0.65rem; font-weight: 700; color: #A07850; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .sp-value { font-family: 'Nanum Myeongjo', serif; font-size: 1rem; font-weight: 700; color: #6B4226; margin-bottom: 4px; }
+    .sp-sub { font-size: 0.72rem; color: #A07850; }
+    .sp-swatches { display: flex; gap: 8px; margin-top: 8px; }
+    .sp-swatch { width: 30px; height: 30px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .sp-footer { text-align: center; font-size: 0.68rem; color: #A07850; margin-top: 14px; font-style: italic; }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="deco">✦</div>
-  <h1>다꾸 뽑기</h1>
-  <p class="subtitle">막힐 때 눌러봐요 — 오늘의 다꾸를 알려드려요</p>
-  <div class="deco">✦</div>
-</header>
+<div class="header">
+  <div class="header-title">오늘의 다꾸 뽑기 <span>♡</span></div>
+  <div class="header-sub">오늘은 어떤 다꾸를 해볼까요?</div>
+</div>
 
-<main>
-  <!-- 색상 -->
-  <div class="card">
-    <h2 class="card-title">🎨 색상 뽑기</h2>
-    <div class="result-box empty" id="color-box">
-      <span class="empty-text">버튼을 눌러 뽑아봐요!</span>
+<div class="main">
+
+  <!-- COLOR -->
+
+  <div class="paper-card">
+    <div class="tape tape-pink" style="width:48px;top:-7px;left:20px;transform:rotate(-2deg);"></div>
+    <div class="hole" style="top:28px"></div><div class="hole" style="top:48px"></div><div class="hole" style="top:68px"></div>
+    <div style="padding-left:18px;">
+      <div class="card-label">🎨 오늘의 컬러</div>
+      <div id="color-result"><div class="sketch-empty">버튼을 눌러 오늘의 컬러를 뽑아봐요!</div></div>
+      <button class="btn-pick" id="color-btn" onclick="pick('color')">✨ 컬러 뽑기</button>
     </div>
-    <button class="btn" onclick="pick('color')">✨ 뽑기</button>
   </div>
 
-  <!-- 레이아웃 -->
+  <!-- LAYOUT -->
 
-  <div class="card">
-    <h2 class="card-title">📐 레이아웃 뽑기</h2>
-    <div class="result-box empty" id="layout-box">
-      <span class="empty-text">버튼을 눌러 뽑아봐요!</span>
+  <div class="paper-card">
+    <div class="tape tape-beige" style="width:48px;top:-7px;right:20px;transform:rotate(2deg);"></div>
+    <div class="hole" style="top:28px"></div><div class="hole" style="top:48px"></div><div class="hole" style="top:68px"></div>
+    <div style="padding-left:18px;">
+      <div class="card-label">📐 스케치 미리보기</div>
+      <div class="sketch-area" id="layout-sketch"><div class="sketch-empty">버튼을 눌러<br>오늘의 레이아웃을 뽑아봐요!</div></div>
+      <div id="layout-result"></div>
+      <button class="btn-pick" id="layout-btn" onclick="pick('layout')">✨ 레이아웃 뽑기</button>
     </div>
-    <button class="btn" onclick="pick('layout')">✨ 뽑기</button>
   </div>
 
-  <!-- 테마 -->
+  <!-- THEME -->
 
-  <div class="card">
-    <h2 class="card-title">🌿 테마/무드 뽑기</h2>
-    <div class="result-box empty" id="theme-box">
-      <span class="empty-text">버튼을 눌러 뽑아봐요!</span>
+  <div class="paper-card">
+    <div class="tape tape-pink" style="width:48px;top:-7px;left:20px;transform:rotate(-1deg);"></div>
+    <div class="hole" style="top:28px"></div><div class="hole" style="top:48px"></div><div class="hole" style="top:68px"></div>
+    <div style="padding-left:18px;">
+      <div class="card-label">🌿 오늘의 무드</div>
+      <div id="theme-result"><div class="sketch-empty">버튼을 눌러 오늘의 무드를 뽑아봐요!</div></div>
+      <button class="btn-pick" id="theme-btn" onclick="pick('theme')">✨ 무드 뽑기</button>
     </div>
-    <button class="btn" onclick="pick('theme')">✨ 뽑기</button>
   </div>
-</main>
 
-<footer>오늘도 즐거운 다꾸 하세요 🌸</footer>
+  <!-- SAVE -->
+
+  <div class="save-card">
+    <div class="tape tape-beige" style="width:48px;top:-7px;left:20px;transform:rotate(-2deg);"></div>
+    <div class="save-title">🌸 오늘의 다꾸 저장하기</div>
+    <div class="save-desc">세 가지를 모두 뽑으면<br>이미지로 저장할 수 있어요!</div>
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="resetAll()">↺ 다시뽑기</button>
+      <button class="btn-primary" id="save-btn" onclick="saveImage()" disabled>🔖 이미지 저장</button>
+    </div>
+    <div class="save-status" id="save-status"></div>
+  </div>
+
+</div>
+
+<!-- HIDDEN SAVE PREVIEW -->
+
+<div id="save-preview">
+  <div class="sp-header">
+    <div class="sp-title">✦ 오늘의 다꾸 뽑기 ✦</div>
+    <div class="sp-date" id="sp-date"></div>
+  </div>
+  <div class="sp-section">
+    <div class="sp-label">🎨 오늘의 컬러</div>
+    <div class="sp-value" id="sp-color-name"></div>
+    <div class="sp-swatches" id="sp-swatches"></div>
+  </div>
+  <div class="sp-section">
+    <div class="sp-label">📐 오늘의 레이아웃</div>
+    <div class="sp-value" id="sp-layout-name"></div>
+    <div id="sp-sketch" style="margin-top:8px;"></div>
+    <div class="sp-sub" id="sp-layout-desc" style="margin-top:6px;"></div>
+  </div>
+  <div class="sp-section">
+    <div class="sp-label">🌿 오늘의 무드</div>
+    <div class="sp-value" id="sp-theme-name"></div>
+    <div class="sp-sub" id="sp-theme-desc"></div>
+  </div>
+  <div class="sp-footer">오늘도 즐거운 다꾸 하세요 🌸</div>
+</div>
 
 <script>
-  const data = {
-    color: {
-      items: [
-        { name: "베이지 + 테라코타 + 크림", hex: ["#F5ECD7", "#C7614A", "#FFF8F0"] },
-        { name: "라벤더 + 민트 + 화이트", hex: ["#C9B8E8", "#B2E4D8", "#FFFFFF"] },
-        { name: "머스타드 + 올리브 + 브라운", hex: ["#E8C840", "#6B7B3A", "#7B4F2E"] },
-        { name: "피치 + 코랄 + 골드", hex: ["#FFCBA4", "#FF6B6B", "#FFD700"] },
-        { name: "네이비 + 크림 + 버건디", hex: ["#1B2A4A", "#FFF8F0", "#800020"] },
-        { name: "세이지 + 화이트 + 카키", hex: ["#B2C5A8", "#FFFFFF", "#8B8B6B"] },
-        { name: "핑크 + 라일락 + 실버", hex: ["#FFB7C5", "#C8A4D4", "#C0C0C0"] },
-        { name: "오렌지 + 옐로우 + 아이보리", hex: ["#FF8C42", "#FFD166", "#FFF3E0"] },
-      ],
-      tip: (item) => `오늘은 ${item.name} 조합으로 꾸며봐요! 메인 컬러를 가장 많이, 포인트 컬러는 살짝만 써보세요 ✨`,
-      render: (item) => `
-        <div class="result-inner">
-          <div class="swatch-row">${item.hex.map(h => `<div class="swatch" style="background:${h}"></div>`).join('')}</div>
-          <p class="result-name">${item.name}</p>
-          <div class="tip-box">
-            <span class="tip-label">💡 팁</span>
-            <p class="tip-text">${data.color.tip(item)}</p>
-          </div>
-        </div>`
-    },
-    layout: {
-      items: [
-        {
-          name: "사진 왼쪽 크게, 오른쪽엔 글씨와 스티커",
-          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
-            <rect x="10" y="10" width="90" height="120" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
-            <text x="55" y="72" text-anchor="middle" font-size="22" fill="#C7614A">📷</text>
-            <rect x="112" y="10" width="78" height="30" rx="4" fill="#D4E8D0" stroke="#6B7B3A" stroke-width="1"/>
-            <text x="151" y="30" text-anchor="middle" font-size="10" fill="#3B2A1A">글씨</text>
-            <rect x="112" y="50" width="35" height="35" rx="4" fill="#F5C5C5" stroke="#C7614A" stroke-width="1"/>
-            <text x="129" y="73" text-anchor="middle" font-size="16" fill="#C7614A">🌸</text>
-            <rect x="155" y="50" width="35" height="35" rx="4" fill="#C9B8E8" stroke="#8B6F5A" stroke-width="1"/>
-            <text x="172" y="73" text-anchor="middle" font-size="16">⭐</text>
-            <rect x="112" y="95" width="78" height="35" rx="4" fill="#FFE4B5" stroke="#C7614A" stroke-width="1"/>
-            <text x="151" y="117" text-anchor="middle" font-size="10" fill="#3B2A1A">메모 / 스티커</text>
-          </svg>`
-        },
-        {
-          name: "상단 제목 크게, 하단 사진 3장 나란히",
-          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
-            <rect x="10" y="10" width="180" height="40" rx="4" fill="#D4E8D0" stroke="#6B7B3A" stroke-width="1.5"/>
-            <text x="100" y="35" text-anchor="middle" font-size="13" fill="#3B2A1A" font-weight="bold">제 목</text>
-            <rect x="10" y="62" width="54" height="68" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
-            <text x="37" y="100" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
-            <rect x="73" y="62" width="54" height="68" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
-            <text x="100" y="100" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
-            <rect x="136" y="62" width="54" height="68" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
-            <text x="163" y="100" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
-          </svg>`
-        },
-        {
-          name: "대각선으로 요소 배치하기",
-          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
-            <rect x="8" y="8" width="70" height="55" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
-            <text x="43" y="40" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
-            <rect x="65" y="45" width="50" height="40" rx="4" fill="#C9B8E8" stroke="#8B6F5A" stroke-width="1"/>
-            <text x="90" y="70" text-anchor="middle" font-size="11" fill="#3B2A1A">글씨</text>
-            <rect x="115" y="75" width="75" height="55" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
-            <text x="152" y="107" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
-            <text x="30" y="110" text-anchor="middle" font-size="20">🌸</text>
-            <text x="170" y="30" text-anchor="middle" font-size="20">⭐</text>
-          </svg>`
-        },
-        {
-          name: "중앙 사진, 주변 스티커 가득",
-          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
-            <rect x="55" y="30" width="90" height="80" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
-            <text x="100" y="78" text-anchor="middle" font-size="28" fill="#C7614A">📷</text>
-            <text x="20" y="30" font-size="18">🌸</text>
-            <text x="165" y="30" font-size="18">⭐</text>
-            <text x="15" y="80" font-size="18">🍂</text>
-            <text x="168" y="85" font-size="18">🌿</text>
-            <text x="20" y="128" font-size="18">✨</text>
-            <text x="163" y="128" font-size="18">🎀</text>
-            <text x="88" y="18" font-size="18">🌙</text>
-            <text x="88" y="136" font-size="18">💫</text>
-          </svg>`
-        },
-        {
-          name: "두 페이지를 하나처럼 — 양쪽에 걸쳐서",
-          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
-            <line x1="100" y1="0" x2="100" y2="140" stroke="#D4B49A" stroke-width="1" stroke-dasharray="4,3"/>
-            <rect x="8" y="15" width="80" height="55" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
-            <text x="48" y="48" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
-            <rect x="112" y="15" width="80" height="55" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
-            <text x="152" y="48" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
-            <rect x="30" y="82" width="140" height="45" rx="4" fill="#D4E8D0" stroke="#6B7B3A" stroke-width="1.5"/>
-            <text x="100" y="110" text-anchor="middle" font-size="11" fill="#3B2A1A">양쪽에 걸친 글씨/데코</text>
-          </svg>`
-        },
-        {
-          name: "격자(그리드) 형식으로 칸칸이 채우기",
-          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
-            <rect x="10" y="10" width="55" height="55" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
-            <text x="37" y="42" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
-            <rect x="73" y="10" width="55" height="55" rx="4" fill="#C9B8E8" stroke="#8B6F5A" stroke-width="1"/>
-            <text x="100" y="42" text-anchor="middle" font-size="11" fill="#3B2A1A">글씨</text>
-            <rect x="136" y="10" width="54" height="55" rx="4" fill="#FFE4B5" stroke="#C7614A" stroke-width="1"/>
-            <text x="163" y="42" text-anchor="middle" font-size="20">🌸</text>
-            <rect x="10" y="73" width="55" height="57" rx="4" fill="#D4E8D0" stroke="#6B7B3A" stroke-width="1"/>
-            <text x="37" y="106" text-anchor="middle" font-size="11" fill="#3B2A1A">메모</text>
-            <rect x="73" y="73" width="55" height="57" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
-            <text x="100" y="106" text-anchor="middle" font-size="20" fill="#C7614A">📷</text>
-            <rect x="136" y="73" width="54" height="57" rx="4" fill="#F5C5C5" stroke="#C7614A" stroke-width="1"/>
-            <text x="163" y="106" text-anchor="middle" font-size="20">⭐</text>
-          </svg>`
-        },
-        {
-          name: "여백을 많이 두는 미니멀 레이아웃",
-          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
-            <rect x="55" y="20" width="90" height="65" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
-            <text x="100" y="60" text-anchor="middle" font-size="24" fill="#C7614A">📷</text>
-            <text x="100" y="105" text-anchor="middle" font-size="10" fill="#8B6F5A">— 한 줄 글씨 —</text>
-            <text x="100" y="125" text-anchor="middle" font-size="9" fill="#B8977E">날짜</text>
-          </svg>`
-        },
-        {
-          name: "스크랩북처럼 겹겹이 레이어드하기",
-          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
-            <rect x="20" y="20" width="110" height="80" rx="3" fill="#FFE4B5" stroke="#C7614A" stroke-width="1" transform="rotate(-5 20 20)"/>
-            <rect x="35" y="15" width="110" height="80" rx="3" fill="#D4E8D0" stroke="#6B7B3A" stroke-width="1" transform="rotate(3 35 15)"/>
-            <rect x="45" y="25" width="100" height="75" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
-            <text x="95" y="68" text-anchor="middle" font-size="22" fill="#C7614A">📷</text>
-            <text x="150" y="110" font-size="18">🌸</text>
-            <text x="15" y="120" font-size="16">✨</text>
-          </svg>`
-        },
-        {
-          name: "상단 1/3 제목 존, 하단 2/3 사진 존",
-          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
-            <rect x="10" y="10" width="180" height="38" rx="4" fill="#D4E8D0" stroke="#6B7B3A" stroke-width="1.5"/>
-            <text x="100" y="34" text-anchor="middle" font-size="13" fill="#3B2A1A" font-weight="bold">✦ 제 목 존 ✦</text>
-            <rect x="10" y="57" width="180" height="73" rx="4" fill="#E8D5C0" stroke="#C7614A" stroke-width="1.5"/>
-            <text x="100" y="100" text-anchor="middle" font-size="28" fill="#C7614A">📷</text>
-          </svg>`
-        },
-        {
-          name: "모서리 4개에 스티커, 가운데 텍스트",
-          svg: `<svg viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="140" rx="8" fill="#FFF8F0"/>
-            <text x="12" y="35" font-size="24">🌸</text>
-            <text x="158" y="35" font-size="24">⭐</text>
-            <text x="12" y="128" font-size="24">✨</text>
-            <text x="158" y="128" font-size="24">🎀</text>
-            <rect x="50" y="35" width="100" height="70" rx="6" fill="#FFF0E8" stroke="#D4B49A" stroke-width="1" stroke-dasharray="4,3"/>
-            <text x="100" y="68" text-anchor="middle" font-size="11" fill="#3B2A1A">오늘의 글씨</text>
-            <text x="100" y="85" text-anchor="middle" font-size="10" fill="#8B6F5A">날짜 / 한마디</text>
-          </svg>`
-        },
-      ],
-      tip: (item) => `먼저 연필로 대략 스케치해보고 시작하면 훨씬 쉬워요! 📝`,
-      render: (item) => `
-        <div class="result-inner">
-          <div class="sketch-wrap">
-            ${item.svg}
-            <p class="result-name" style="text-align:center">${item.name}</p>
-          </div>
-          <div class="tip-box">
-            <span class="tip-label">💡 팁</span>
-            <p class="tip-text">${data.layout.tip(item)}</p>
-          </div>
-        </div>`
-    },
-    theme: {
-      items: [
-        { name: "Cottagecore 🌾", desc: "들꽃, 버섯, 자연 소재 느낌" },
-        { name: "빈티지 레트로 📻", desc: "바랜 색감, 클래식한 폰트, 오래된 감성" },
-        { name: "미니멀 모던 🤍", desc: "여백, 단순함, 깔끔한 선" },
-        { name: "Y2K 반짝이 💿", desc: "홀로그램, 메탈릭, 2000년대 감성" },
-        { name: "아카데믹 🎓", desc: "책, 필기, 도서관, 지적인 무드" },
-        { name: "동화 속 세계 🧚", desc: "파스텔, 별, 달, 마법 같은 느낌" },
-        { name: "도시 감성 🏙️", desc: "모노톤, 신문지 스크랩, 어반 무드" },
-        { name: "가을 낙엽 🍂", desc: "브라운, 오렌지, 따뜻하고 포근한 느낌" },
-        { name: "바다 여름 🌊", desc: "블루, 조개, 샌드, 시원한 느낌" },
-        { name: "카페 감성 ☕", desc: "크래프트지, 커피, 따뜻한 갈색 톤" },
-      ],
-      tip: (item) => `오늘의 테마는 "${item.name}"! ${item.desc}. 이 분위기에 맞는 스티커나 마테를 골라보세요 🎨`,
-      render: (item) => `
-        <div class="result-inner">
-          <p class="result-name">${item.name}</p>
-          <p class="result-desc">${item.desc}</p>
-          <div class="tip-box">
-            <span class="tip-label">💡 팁</span>
-            <p class="tip-text">${data.theme.tip(item)}</p>
-          </div>
-        </div>`
-    }
-  };
+const state = { color: null, layout: null, theme: null };
 
-  function pick(key) {
-    const box = document.getElementById(`${key}-box`);
-    const btn = box.nextElementSibling;
-    btn.disabled = true;
-    btn.textContent = '🎲 뽑는 중...';
-    box.classList.add('empty');
-    box.innerHTML = '<span class="empty-text">🎲 뽑는 중...</span>';
+const colors = [
+  { name:"베이지 + 테라코타 + 크림", hex:["#F5ECD7","#C7614A","#FFF8F0"], names:["베이지","테라코타","크림"] },
+  { name:"라벤더 + 민트 + 화이트", hex:["#C9B8E8","#B2E4D8","#FFFFFF"], names:["라벤더","민트","화이트"] },
+  { name:"머스타드 + 올리브 + 브라운", hex:["#E8C840","#6B7B3A","#7B4F2E"], names:["머스타드","올리브","브라운"] },
+  { name:"피치 + 코랄 + 골드", hex:["#FFCBA4","#FF6B6B","#FFD700"], names:["피치","코랄","골드"] },
+  { name:"네이비 + 크림 + 버건디", hex:["#1B2A4A","#FFF8F0","#800020"], names:["네이비","크림","버건디"] },
+  { name:"세이지 + 화이트 + 카키", hex:["#B2C5A8","#FFFFFF","#8B8B6B"], names:["세이지","화이트","카키"] },
+  { name:"핑크 + 라일락 + 실버", hex:["#FFB7C5","#C8A4D4","#C0C0C0"], names:["핑크","라일락","실버"] },
+  { name:"오렌지 + 옐로우 + 아이보리", hex:["#FF8C42","#FFD166","#FFF3E0"], names:["오렌지","옐로우","아이보리"] },
+  { name:"딥그린 + 골드 + 아이보리", hex:["#2D5A3D","#C8A951","#FAF5E4"], names:["딥그린","골드","아이보리"] },
+  { name:"블러쉬 + 누드 + 초콜릿", hex:["#F4A7B9","#E8C9B0","#5C3317"], names:["블러쉬","누드","초콜릿"] },
+  { name:"스카이블루 + 화이트 + 레몬", hex:["#87CEEB","#FFFFFF","#FFF44F"], names:["스카이블루","화이트","레몬"] },
+  { name:"모카 + 밀크 + 카라멜", hex:["#6F4E37","#FFF8DC","#C68642"], names:["모카","밀크","카라멜"] },
+  { name:"포레스트 + 버터 + 테라코타", hex:["#4A7C59","#F5E6A3","#C7614A"], names:["포레스트","버터","테라코타"] },
+  { name:"로즈골드 + 화이트 + 그레이", hex:["#E8A598","#FFFFFF","#B0A8A8"], names:["로즈골드","화이트","그레이"] },
+  { name:"딥퍼플 + 라일락 + 크림", hex:["#4B0082","#C8A4D4","#FFF8F0"], names:["딥퍼플","라일락","크림"] },
+  { name:"민트 + 화이트 + 골드", hex:["#98E4D0","#FFFFFF","#FFD700"], names:["민트","화이트","골드"] },
+  { name:"코랄 + 피치 + 아이보리", hex:["#FF6B6B","#FFCBA4","#FFF3E0"], names:["코랄","피치","아이보리"] },
+  { name:"네이비 + 스카이 + 화이트", hex:["#1B2A4A","#87CEEB","#FFFFFF"], names:["네이비","스카이","화이트"] },
+  { name:"올리브 + 크림 + 버건디", hex:["#6B7B3A","#FFF8F0","#800020"], names:["올리브","크림","버건디"] },
+  { name:"차콜 + 핑크 + 골드", hex:["#36454F","#FFB7C5","#FFD700"], names:["차콜","핑크","골드"] },
+];
 
-    setTimeout(() => {
-      const items = data[key].items;
-      const item = items[Math.floor(Math.random() * items.length)];
-      box.innerHTML = data[key].render(item);
-      box.classList.remove('empty');
-      btn.disabled = false;
-      btn.textContent = '🔄 다시 뽑기';
-    }, 700);
+const layouts = [
+  { name:"포켓 + 사진 기록형", desc:"영수증이나 메모를 포켓처럼 넣고, 옆면에 사진과 글을 함께 정리하는 구성", feel:"귀엽고 정리된 느낌", usage:"사진 2장 + 짧은 기록", mood:"카페 / 일상 / 빈티지", material:"영수증 조각, 사진, 라벨, 체크 마테",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><line x1="140" y1="0" x2="140" y2="200" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="4,3" opacity="0.4"/><rect x="10" y="10" width="120" height="180" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2"/><rect x="20" y="20" width="100" height="80" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2"/><polyline points="20,20 70,58 120,20" fill="none" stroke="#8B6040" stroke-width="1.2"/><polyline points="20,100 50,72" fill="none" stroke="#8B6040" stroke-width="1"/><polyline points="120,100 90,72" fill="none" stroke="#8B6040" stroke-width="1"/><line x1="25" y1="112" x2="115" y2="112" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="25" y1="122" x2="115" y2="122" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="25" y1="132" x2="95" y2="132" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><rect x="28" y="148" width="45" height="30" rx="2" fill="none" stroke="#8B6040" stroke-width="1"/><text x="50" y="167" text-anchor="middle" font-size="9" fill="#8B6040" font-family="serif">00.00</text><rect x="148" y="10" width="122" height="180" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2"/><rect x="195" y="18" width="68" height="55" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2"/><line x1="195" y1="73" x2="263" y2="18" stroke="#8B6040" stroke-width="0.5" opacity="0.25"/><line x1="263" y1="73" x2="195" y2="18" stroke="#8B6040" stroke-width="0.5" opacity="0.25"/><line x1="155" y1="22" x2="188" y2="22" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="155" y1="32" x2="188" y2="32" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="155" y1="42" x2="188" y2="42" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="155" y1="52" x2="188" y2="52" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="155" y1="62" x2="188" y2="62" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><rect x="195" y="82" width="68" height="55" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2"/><line x1="195" y1="137" x2="263" y2="82" stroke="#8B6040" stroke-width="0.5" opacity="0.25"/><line x1="263" y1="137" x2="195" y2="82" stroke="#8B6040" stroke-width="0.5" opacity="0.25"/><line x1="155" y1="85" x2="188" y2="85" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="155" y1="95" x2="188" y2="95" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="155" y1="152" x2="263" y2="152" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="155" y1="162" x2="263" y2="162" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="155" y1="172" x2="240" y2="172" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/></svg>`},
+  { name:"사진 왼쪽 + 글씨 오른쪽", desc:"왼쪽 페이지에 사진을 크게 붙이고, 오른쪽에 오늘의 기록을 적는 구성", feel:"깔끔하고 다이어리스러운 느낌", usage:"사진 1장 + 일기 쓰기", mood:"일상 / 미니멀 / 아카데믹", material:"폴라로이드 사진, 펜, 스탬프",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><line x1="140" y1="0" x2="140" y2="200" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="4,3" opacity="0.4"/><rect x="15" y="15" width="110" height="140" rx="2" fill="none" stroke="#8B6040" stroke-width="1.5"/><line x1="15" y1="155" x2="125" y2="15" stroke="#8B6040" stroke-width="0.5" opacity="0.2"/><line x1="125" y1="155" x2="15" y2="15" stroke="#8B6040" stroke-width="0.5" opacity="0.2"/><line x1="15" y1="165" x2="125" y2="165" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="35" y1="175" x2="105" y2="175" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="150" y1="25" x2="265" y2="25" stroke="#8B6040" stroke-width="1.2"/><line x1="150" y1="55" x2="265" y2="55" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><line x1="150" y1="67" x2="265" y2="67" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><line x1="150" y1="79" x2="265" y2="79" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><line x1="150" y1="91" x2="265" y2="91" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><line x1="150" y1="103" x2="265" y2="103" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><line x1="150" y1="115" x2="265" y2="115" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><line x1="150" y1="127" x2="265" y2="127" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><line x1="150" y1="139" x2="265" y2="139" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><circle cx="225" cy="172" r="16" fill="none" stroke="#8B6040" stroke-width="1"/><text x="225" y="177" text-anchor="middle" font-size="13" fill="#8B6040">☺</text></svg>`},
+  { name:"상단 제목 + 하단 사진 3장", desc:"상단에 날짜와 제목을 크게 쓰고, 하단에 사진 3장을 나란히 배치하는 구성", feel:"정돈되고 아카이브 느낌", usage:"사진 3장 + 제목/날짜", mood:"여행 / 기록 / 아카데믹", material:"사진, 날짜 스탬프, 마테",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><rect x="10" y="10" width="260" height="55" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2" stroke-dasharray="3,2"/><line x1="25" y1="28" x2="180" y2="28" stroke="#8B6040" stroke-width="1.2"/><line x1="25" y1="40" x2="140" y2="40" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="25" y1="52" x2="100" y2="52" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><rect x="10" y="76" width="80" height="112" rx="2" fill="none" stroke="#8B6040" stroke-width="1.3"/><line x1="10" y1="188" x2="90" y2="76" stroke="#8B6040" stroke-width="0.5" opacity="0.2"/><line x1="90" y1="188" x2="10" y2="76" stroke="#8B6040" stroke-width="0.5" opacity="0.2"/><rect x="100" y="76" width="80" height="112" rx="2" fill="none" stroke="#8B6040" stroke-width="1.3"/><line x1="100" y1="188" x2="180" y2="76" stroke="#8B6040" stroke-width="0.5" opacity="0.2"/><line x1="180" y1="188" x2="100" y2="76" stroke="#8B6040" stroke-width="0.5" opacity="0.2"/><rect x="190" y="76" width="80" height="112" rx="2" fill="none" stroke="#8B6040" stroke-width="1.3"/><line x1="190" y1="188" x2="270" y2="76" stroke="#8B6040" stroke-width="0.5" opacity="0.2"/><line x1="270" y1="188" x2="190" y2="76" stroke="#8B6040" stroke-width="0.5" opacity="0.2"/></svg>`},
+  { name:"중앙 사진 + 주변 스티커", desc:"페이지 가운데에 사진을 크게 놓고 주변을 스티커와 마테로 화사하게 채우는 구성", feel:"화려하고 포인트 있는 느낌", usage:"사진 1장 + 스티커 많이", mood:"Cottagecore / 봄 / 감성", material:"꽃 스티커, 마테, 와시테이프",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><rect x="75" y="40" width="130" height="115" rx="2" fill="none" stroke="#8B6040" stroke-width="1.5"/><line x1="75" y1="155" x2="205" y2="40" stroke="#8B6040" stroke-width="0.5" opacity="0.2"/><line x1="205" y1="155" x2="75" y2="40" stroke="#8B6040" stroke-width="0.5" opacity="0.2"/><circle cx="30" cy="32" r="20" fill="none" stroke="#8B6040" stroke-width="1"/><text x="30" y="37" text-anchor="middle" font-size="18" fill="#8B6040">✿</text><circle cx="250" cy="32" r="20" fill="none" stroke="#8B6040" stroke-width="1"/><text x="250" y="37" text-anchor="middle" font-size="18" fill="#8B6040">★</text><circle cx="30" cy="168" r="20" fill="none" stroke="#8B6040" stroke-width="1"/><text x="30" y="173" text-anchor="middle" font-size="16" fill="#8B6040">♡</text><circle cx="250" cy="168" r="20" fill="none" stroke="#8B6040" stroke-width="1"/><text x="250" y="173" text-anchor="middle" font-size="16" fill="#8B6040">✦</text><rect x="58" y="33" width="26" height="8" rx="2" fill="none" stroke="#8B6040" stroke-width="0.8" opacity="0.5"/><rect x="195" y="33" width="26" height="8" rx="2" fill="none" stroke="#8B6040" stroke-width="0.8" opacity="0.5"/><line x1="85" y1="170" x2="195" y2="170" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="100" y1="182" x2="180" y2="182" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/></svg>`},
+  { name:"두 페이지 통으로 꾸미기", desc:"왼쪽과 오른쪽 페이지를 경계 없이 하나의 큰 캔버스처럼 사용하는 구성", feel:"시원하고 임팩트 있는 느낌", usage:"사진 2~3장 + 큰 제목", mood:"여행 / 특별한 날 / 빈티지", material:"큰 사진, 와시테이프, 스탬프",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><line x1="140" y1="0" x2="140" y2="200" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="4,3" opacity="0.35"/><rect x="15" y="15" width="250" height="108" rx="2" fill="none" stroke="#8B6040" stroke-width="1.5"/><line x1="15" y1="123" x2="265" y2="15" stroke="#8B6040" stroke-width="0.4" opacity="0.15"/><line x1="265" y1="123" x2="15" y2="15" stroke="#8B6040" stroke-width="0.4" opacity="0.15"/><line x1="15" y1="140" x2="120" y2="140" stroke="#8B6040" stroke-width="1.2"/><line x1="15" y1="153" x2="100" y2="153" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="15" y1="165" x2="110" y2="165" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><circle cx="210" cy="162" r="25" fill="none" stroke="#8B6040" stroke-width="1"/><text x="210" y="157" text-anchor="middle" font-size="9" fill="#8B6040">KEEP</text><text x="210" y="169" text-anchor="middle" font-size="9" fill="#8B6040">GOING</text><circle cx="210" cy="162" r="19" fill="none" stroke="#8B6040" stroke-width="0.5" opacity="0.5"/></svg>`},
+  { name:"그리드 6칸 채우기", desc:"페이지를 6칸으로 나누어 사진, 글씨, 스티커를 칸칸이 채우는 구성", feel:"규칙적이고 정갈한 느낌", usage:"사진 3장 + 메모 3칸", mood:"미니멀 / 아카데믹 / 일상", material:"사진, 메모지, 도트 스티커",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><rect x="10" y="10" width="82" height="85" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2"/><line x1="10" y1="95" x2="92" y2="10" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="92" y1="95" x2="10" y2="10" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><rect x="99" y="10" width="82" height="85" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2"/><line x1="109" y1="26" x2="171" y2="26" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><line x1="109" y1="38" x2="171" y2="38" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><line x1="109" y1="50" x2="165" y2="50" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><rect x="188" y="10" width="82" height="85" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2"/><line x1="188" y1="95" x2="270" y2="10" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="270" y1="95" x2="188" y2="10" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><rect x="10" y="105" width="82" height="85" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2"/><line x1="20" y1="120" x2="82" y2="120" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><line x1="20" y1="132" x2="82" y2="132" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><rect x="99" y="105" width="82" height="85" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2"/><line x1="99" y1="190" x2="181" y2="105" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="181" y1="190" x2="99" y2="105" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><rect x="188" y="105" width="82" height="85" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2"/><circle cx="229" cy="147" r="22" fill="none" stroke="#8B6040" stroke-width="1"/><text x="229" y="152" text-anchor="middle" font-size="18" fill="#8B6040">☺</text></svg>`},
+  { name:"미니멀 여백 레이아웃", desc:"여백을 최대한 살리고 사진 하나와 한 줄 글씨만으로 구성하는 심플한 레이아웃", feel:"세련되고 조용한 느낌", usage:"사진 1장 + 한 줄 문장", mood:"미니멀 / 모던 / 감성", material:"폴라로이드, 얇은 펜, 날짜 스탬프",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><rect x="65" y="18" width="150" height="125" rx="2" fill="none" stroke="#8B6040" stroke-width="1.5"/><line x1="65" y1="143" x2="215" y2="18" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="215" y1="143" x2="65" y2="18" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="70" y1="160" x2="210" y2="160" stroke="#8B6040" stroke-width="1"/><text x="140" y="182" text-anchor="middle" font-size="9" fill="#8B6040" font-family="serif">0000. 00. 00</text></svg>`},
+  { name:"레이어드 스크랩북", desc:"종이와 사진, 마테를 겹겹이 레이어드하여 풍성하게 채우는 구성", feel:"빈티지하고 손맛 있는 느낌", usage:"사진 2장 + 메모지 + 마테", mood:"빈티지 / Cottagecore / 따뜻한", material:"크래프트지, 마테, 사진, 스탬프",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><rect x="20" y="25" width="160" height="120" rx="2" fill="none" stroke="#8B6040" stroke-width="1" stroke-dasharray="3,2" opacity="0.5" transform="rotate(-4 100 85)"/><rect x="35" y="18" width="150" height="110" rx="2" fill="none" stroke="#8B6040" stroke-width="1" opacity="0.7" transform="rotate(3 110 73)"/><rect x="50" y="28" width="130" height="100" rx="2" fill="none" stroke="#8B6040" stroke-width="1.5"/><line x1="50" y1="128" x2="180" y2="28" stroke="#8B6040" stroke-width="0.5" opacity="0.2"/><line x1="180" y1="128" x2="50" y2="28" stroke="#8B6040" stroke-width="0.5" opacity="0.2"/><rect x="108" y="22" width="44" height="10" rx="2" fill="none" stroke="#8B6040" stroke-width="0.8" opacity="0.6"/><circle cx="238" cy="80" r="28" fill="none" stroke="#8B6040" stroke-width="1"/><text x="238" y="75" text-anchor="middle" font-size="8" fill="#8B6040">atelier</text><text x="238" y="86" text-anchor="middle" font-size="8" fill="#8B6040">No. 2807</text><circle cx="238" cy="80" r="22" fill="none" stroke="#8B6040" stroke-width="0.5" opacity="0.5"/><line x1="50" y1="145" x2="230" y2="145" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="50" y1="158" x2="210" y2="158" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="50" y1="171" x2="190" y2="171" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/></svg>`},
+  { name:"상단 1/3 제목 + 하단 사진", desc:"상단 공간에 날짜와 제목을 꾸미고, 하단 넓은 공간에 사진을 크게 붙이는 구성", feel:"균형 있고 안정된 느낌", usage:"사진 1~2장 + 제목/날짜", mood:"일상 / 여행 / 기록", material:"사진, 날짜 스탬프, 라벨",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><rect x="10" y="10" width="260" height="58" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2" stroke-dasharray="3,2"/><line x1="25" y1="27" x2="185" y2="27" stroke="#8B6040" stroke-width="1.3"/><line x1="25" y1="40" x2="145" y2="40" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="25" y1="52" x2="110" y2="52" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><circle cx="245" cy="35" r="18" fill="none" stroke="#8B6040" stroke-width="0.8"/><text x="245" y="31" text-anchor="middle" font-size="7" fill="#8B6040">00.00</text><text x="245" y="42" text-anchor="middle" font-size="7" fill="#8B6040">0000</text><rect x="10" y="78" width="260" height="112" rx="2" fill="none" stroke="#8B6040" stroke-width="1.5"/><line x1="10" y1="190" x2="270" y2="78" stroke="#8B6040" stroke-width="0.4" opacity="0.15"/><line x1="270" y1="190" x2="10" y2="78" stroke="#8B6040" stroke-width="0.4" opacity="0.15"/></svg>`},
+  { name:"모서리 스티커 + 중앙 텍스트", desc:"네 모서리를 스티커로 장식하고 중앙에 오늘의 글씨나 문장을 적는 구성", feel:"아기자기하고 귀여운 느낌", usage:"스티커 4개 + 짧은 글씨", mood:"감성 / 일상 / 귀여운", material:"꽃 스티커, 별 스티커, 펜",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><circle cx="35" cy="35" r="25" fill="none" stroke="#8B6040" stroke-width="1"/><text x="35" y="40" text-anchor="middle" font-size="22" fill="#8B6040">✿</text><circle cx="245" cy="35" r="25" fill="none" stroke="#8B6040" stroke-width="1"/><text x="245" y="40" text-anchor="middle" font-size="22" fill="#8B6040">★</text><circle cx="35" cy="165" r="25" fill="none" stroke="#8B6040" stroke-width="1"/><text x="35" y="170" text-anchor="middle" font-size="22" fill="#8B6040">♡</text><circle cx="245" cy="165" r="25" fill="none" stroke="#8B6040" stroke-width="1"/><text x="245" y="170" text-anchor="middle" font-size="22" fill="#8B6040">✦</text><rect x="70" y="55" width="140" height="90" rx="4" fill="none" stroke="#8B6040" stroke-width="1" stroke-dasharray="3,2"/><line x1="85" y1="80" x2="195" y2="80" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="85" y1="95" x2="195" y2="95" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="85" y1="110" x2="180" y2="110" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="85" y1="125" x2="175" y2="125" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/></svg>`},
+  { name:"지그재그 사진+글씨", desc:"사진과 글씨를 번갈아 지그재그로 배치하는 리드미컬한 구성", feel:"활기차고 역동적인 느낌", usage:"사진 2장 + 글씨 2칸", mood:"여행 / 일상 / 활기찬", material:"사진, 컬러 마테, 스티커",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><rect x="10" y="10" width="120" height="85" rx="2" fill="none" stroke="#8B6040" stroke-width="1.3"/><line x1="10" y1="95" x2="130" y2="10" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="130" y1="95" x2="10" y2="10" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><rect x="148" y="10" width="122" height="85" rx="2" fill="none" stroke="#8B6040" stroke-width="1" stroke-dasharray="3,2"/><line x1="160" y1="28" x2="260" y2="28" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="160" y1="42" x2="260" y2="42" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="160" y1="56" x2="260" y2="56" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="160" y1="70" x2="255" y2="70" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="160" y1="82" x2="250" y2="82" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><rect x="10" y="108" width="122" height="82" rx="2" fill="none" stroke="#8B6040" stroke-width="1" stroke-dasharray="3,2"/><line x1="22" y1="125" x2="122" y2="125" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="22" y1="139" x2="122" y2="139" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="22" y1="153" x2="118" y2="153" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="22" y1="167" x2="115" y2="167" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><rect x="148" y="108" width="122" height="82" rx="2" fill="none" stroke="#8B6040" stroke-width="1.3"/><line x1="148" y1="190" x2="270" y2="108" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="270" y1="190" x2="148" y2="108" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/></svg>`},
+  { name:"폴라로이드 콜라주", desc:"폴라로이드 사진 여러 장을 겹치거나 흩뿌리듯 배치하는 자유로운 구성", feel:"빈티지하고 자유로운 느낌", usage:"사진 3~5장 + 손글씨", mood:"빈티지 / Y2K / 감성", material:"폴라로이드 사진, 마테, 손글씨",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><g transform="rotate(-8 80 80)"><rect x="20" y="25" width="90" height="105" rx="2" fill="none" stroke="#8B6040" stroke-width="1.3"/><rect x="25" y="30" width="80" height="75" rx="1" fill="none" stroke="#8B6040" stroke-width="0.7"/><line x1="25" y1="105" x2="105" y2="30" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="105" y1="105" x2="25" y2="30" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="35" y1="117" x2="95" y2="117" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/></g><g transform="rotate(3 165 90)"><rect x="110" y="30" width="90" height="105" rx="2" fill="none" stroke="#8B6040" stroke-width="1.3"/><rect x="115" y="35" width="80" height="75" rx="1" fill="none" stroke="#8B6040" stroke-width="0.7"/><line x1="115" y1="110" x2="195" y2="35" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="195" y1="110" x2="115" y2="35" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="125" y1="122" x2="185" y2="122" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/></g><g transform="rotate(10 230 110)"><rect x="185" y="55" width="75" height="88" rx="2" fill="none" stroke="#8B6040" stroke-width="1.3"/><rect x="190" y="60" width="65" height="62" rx="1" fill="none" stroke="#8B6040" stroke-width="0.7"/><line x1="190" y1="122" x2="255" y2="60" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="255" y1="122" x2="190" y2="60" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/></g></svg>`},
+  { name:"상단 와이드 사진 + 하단 기록", desc:"상단 전체 너비로 사진을 넓게 붙이고 하단에 그날의 기록을 채우는 구성", feel:"영화 스틸컷 같은 시네마틱 느낌", usage:"가로 사진 1장 + 기록", mood:"여행 / 감성 / 영화적", material:"가로 사진, 날짜 스탬프, 펜",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><rect x="10" y="10" width="260" height="105" rx="2" fill="none" stroke="#8B6040" stroke-width="1.5"/><line x1="10" y1="115" x2="270" y2="10" stroke="#8B6040" stroke-width="0.4" opacity="0.15"/><line x1="270" y1="115" x2="10" y2="10" stroke="#8B6040" stroke-width="0.4" opacity="0.15"/><line x1="20" y1="132" x2="260" y2="132" stroke="#8B6040" stroke-width="1"/><line x1="20" y1="147" x2="260" y2="147" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><line x1="20" y1="160" x2="240" y2="160" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><line x1="20" y1="173" x2="220" y2="173" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/><line x1="20" y1="186" x2="200" y2="186" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,2"/></svg>`},
+  { name:"사진 + 체크리스트", desc:"사진 한 장 옆에 오늘의 체크리스트나 좋았던 것 리스트를 적는 구성", feel:"실용적이고 귀여운 느낌", usage:"사진 1장 + 체크리스트", mood:"일상 / 다이어리 / 기록", material:"사진, 체크박스 스탬프, 펜",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><rect x="10" y="15" width="115" height="170" rx="2" fill="none" stroke="#8B6040" stroke-width="1.3"/><line x1="10" y1="185" x2="125" y2="15" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="125" y1="185" x2="10" y2="15" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="145" y1="22" x2="265" y2="22" stroke="#8B6040" stroke-width="1"/><rect x="145" y="38" width="10" height="10" rx="1" fill="none" stroke="#8B6040" stroke-width="1"/><line x1="158" y1="43" x2="265" y2="43" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><rect x="145" y="58" width="10" height="10" rx="1" fill="none" stroke="#8B6040" stroke-width="1"/><line x1="147" y1="60" x2="153" y2="66" stroke="#8B6040" stroke-width="1"/><line x1="158" y1="63" x2="265" y2="63" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><rect x="145" y="78" width="10" height="10" rx="1" fill="none" stroke="#8B6040" stroke-width="1"/><line x1="158" y1="83" x2="265" y2="83" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><rect x="145" y="98" width="10" height="10" rx="1" fill="none" stroke="#8B6040" stroke-width="1"/><line x1="147" y1="100" x2="153" y2="106" stroke="#8B6040" stroke-width="1"/><line x1="158" y1="103" x2="255" y2="103" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><rect x="145" y="118" width="10" height="10" rx="1" fill="none" stroke="#8B6040" stroke-width="1"/><line x1="158" y1="123" x2="255" y2="123" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><rect x="145" y="138" width="10" height="10" rx="1" fill="none" stroke="#8B6040" stroke-width="1"/><line x1="158" y1="143" x2="250" y2="143" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><circle cx="205" cy="172" r="15" fill="none" stroke="#8B6040" stroke-width="0.8"/><text x="205" y="177" text-anchor="middle" font-size="12" fill="#8B6040">✿</text></svg>`},
+  { name:"타임라인 기록형", desc:"세로 선을 중심으로 왼쪽에 시간/날짜, 오른쪽에 기록을 적는 타임라인 구성", feel:"일기장 같고 정돈된 느낌", usage:"글씨 중심 + 작은 스티커", mood:"아카데믹 / 기록 / 일상", material:"자, 펜, 작은 스티커",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><line x1="85" y1="10" x2="85" y2="190" stroke="#8B6040" stroke-width="1.3"/><circle cx="85" cy="35" r="4" fill="none" stroke="#8B6040" stroke-width="1.2"/><circle cx="85" cy="80" r="4" fill="none" stroke="#8B6040" stroke-width="1.2"/><circle cx="85" cy="125" r="4" fill="none" stroke="#8B6040" stroke-width="1.2"/><circle cx="85" cy="170" r="4" fill="none" stroke="#8B6040" stroke-width="1.2"/><line x1="20" y1="32" x2="75" y2="32" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="20" y1="42" x2="75" y2="42" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="20" y1="77" x2="75" y2="77" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="20" y1="87" x2="75" y2="87" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="95" y1="28" x2="265" y2="28" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="95" y1="42" x2="265" y2="42" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><rect x="95" y="52" width="60" height="22" rx="2" fill="none" stroke="#8B6040" stroke-width="0.8"/><line x1="95" y1="75" x2="265" y2="75" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="95" y1="89" x2="265" y2="89" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><rect x="95" y="100" width="80" height="22" rx="2" fill="none" stroke="#8B6040" stroke-width="0.8"/><line x1="95" y1="125" x2="265" y2="125" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="95" y1="139" x2="250" y2="139" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="95" y1="165" x2="265" y2="165" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/><line x1="95" y1="179" x2="255" y2="179" stroke="#8B6040" stroke-width="0.8" stroke-dasharray="2,2"/></svg>`},
+  { name:"봉투 편지 레이아웃", desc:"봉투처럼 열리는 포켓을 만들고 안에 메모나 사진을 넣는 구성", feel:"편지 같은 따뜻한 느낌", usage:"봉투 포켓 + 사진/메모", mood:"빈티지 / 로맨틱 / 따뜻한", material:"봉투형 마테, 작은 메모지, 사진",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><rect x="15" y="30" width="250" height="158" rx="3" fill="none" stroke="#8B6040" stroke-width="1.5"/><polyline points="15,30 140,115 265,30" fill="none" stroke="#8B6040" stroke-width="1.3"/><polyline points="15,188 90,115" fill="none" stroke="#8B6040" stroke-width="1"/><polyline points="265,188 190,115" fill="none" stroke="#8B6040" stroke-width="1"/><rect x="55" y="10" width="170" height="130" rx="2" fill="none" stroke="#8B6040" stroke-width="1" stroke-dasharray="3,2"/><line x1="70" y1="30" x2="210" y2="30" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="70" y1="44" x2="210" y2="44" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="70" y1="58" x2="200" y2="58" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><circle cx="140" cy="165" r="14" fill="none" stroke="#8B6040" stroke-width="1.2"/><text x="140" y="170" text-anchor="middle" font-size="13" fill="#8B6040">♡</text></svg>`},
+  { name:"북마크 탭 레이아웃", desc:"오른쪽에 탭을 만들어 카테고리를 나누고 각 섹션별로 기록하는 구성", feel:"체계적이고 실용적인 느낌", usage:"섹션별 기록 + 사진", mood:"아카데믹 / 기록 / 다이어리", material:"컬러 마테, 탭 스티커, 펜",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><rect x="10" y="10" width="230" height="180" rx="2" fill="none" stroke="#8B6040" stroke-width="1.3"/><rect x="248" y="15" width="25" height="35" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2"/><line x1="253" y1="28" x2="268" y2="28" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,1"/><line x1="253" y1="38" x2="268" y2="38" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,1"/><rect x="248" y="58" width="25" height="35" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2"/><line x1="253" y1="71" x2="268" y2="71" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,1"/><line x1="253" y1="81" x2="268" y2="81" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="2,1"/><rect x="248" y="101" width="25" height="35" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2"/><rect x="248" y="144" width="25" height="35" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2"/><line x1="25" y1="30" x2="225" y2="30" stroke="#8B6040" stroke-width="1.2"/><rect x="25" y="45" width="90" height="65" rx="2" fill="none" stroke="#8B6040" stroke-width="1"/><line x1="25" y1="110" x2="115" y2="45" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="115" y1="110" x2="25" y2="45" stroke="#8B6040" stroke-width="0.4" opacity="0.2"/><line x1="130" y1="48" x2="225" y2="48" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="130" y1="62" x2="225" y2="62" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="130" y1="76" x2="225" y2="76" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="25" y1="128" x2="225" y2="128" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="25" y1="145" x2="225" y2="145" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="25" y1="162" x2="225" y2="162" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="25" y1="179" x2="225" y2="179" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/></svg>`},
+  { name:"원형 중심 + 방사형", desc:"중앙에 원을 그리고 그 주변으로 방사형으로 요소를 배치하는 독창적인 구성", feel:"독창적이고 아트적인 느낌", usage:"중심 글씨 + 주변 사진/스티커", mood:"감성 / 독창적 / 아트", material:"컴퍼스, 마테, 스티커",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><circle cx="140" cy="100" r="48" fill="none" stroke="#8B6040" stroke-width="1.5"/><circle cx="140" cy="100" r="40" fill="none" stroke="#8B6040" stroke-width="0.6" stroke-dasharray="3,2"/><line x1="112" y1="95" x2="168" y2="95" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="112" y1="107" x2="168" y2="107" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="140" y1="52" x2="140" y2="22" stroke="#8B6040" stroke-width="0.7" opacity="0.5"/><line x1="140" y1="148" x2="140" y2="178" stroke="#8B6040" stroke-width="0.7" opacity="0.5"/><line x1="92" y1="100" x2="22" y2="100" stroke="#8B6040" stroke-width="0.7" opacity="0.5"/><line x1="188" y1="100" x2="258" y2="100" stroke="#8B6040" stroke-width="0.7" opacity="0.5"/><rect x="10" y="10" width="45" height="35" rx="2" fill="none" stroke="#8B6040" stroke-width="1"/><rect x="225" y="10" width="45" height="35" rx="2" fill="none" stroke="#8B6040" stroke-width="1"/><rect x="10" y="155" width="45" height="35" rx="2" fill="none" stroke="#8B6040" stroke-width="1"/><circle cx="248" cy="172" r="18" fill="none" stroke="#8B6040" stroke-width="1"/><text x="248" y="177" text-anchor="middle" font-size="16" fill="#8B6040">✿</text></svg>`},
+  { name:"대각선 분할 레이아웃", desc:"페이지를 대각선으로 나누어 위아래에 서로 다른 요소를 배치하는 구성", feel:"개성 있고 역동적인 느낌", usage:"사진 1장 + 글씨 존", mood:"모던 / 개성 / 감각적", material:"사진, 마테, 굵은 펜",
+    svg:`<svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg"><rect width="280" height="200" fill="#FFFDF8"/><line x1="0" y1="128" x2="280" y2="72" stroke="#8B6040" stroke-width="1.5"/><rect x="15" y="10" width="250" height="95" rx="2" fill="none" stroke="#8B6040" stroke-width="1.2" stroke-dasharray="3,2"/><line x1="15" y1="105" x2="265" y2="10" stroke="#8B6040" stroke-width="0.4" opacity="0.15"/><line x1="265" y1="105" x2="15" y2="10" stroke="#8B6040" stroke-width="0.4" opacity="0.15"/><line x1="20" y1="138" x2="260" y2="138" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="20" y1="153" x2="260" y2="153" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="20" y1="166" x2="240" y2="166" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/><line x1="20" y1="179" x2="220" y2="179" stroke="#8B6040" stroke-width="0.7" stroke-dasharray="2,2"/></svg>`},
+];
+
+const themes = [
+  { name:"Cottagecore 🌾", desc:"들꽃, 버섯, 자연 소재 느낌", keywords:"꽃 스티커, 녹색 마테, 크래프트지" },
+  { name:"빈티지 레트로 📻", desc:"바랜 색감, 클래식한 폰트, 오래된 감성", keywords:"영수증, 신문지, 클래식 스탬프" },
+  { name:"미니멀 모던 🤍", desc:"여백, 단순함, 깔끔한 선", keywords:"흰 마테, 얇은 펜, 날짜 스탬프" },
+  { name:"Y2K 반짝이 💿", desc:"홀로그램, 메탈릭, 2000년대 감성", keywords:"홀로그램 스티커, 반짝이 마테" },
+  { name:"아카데믹 🎓", desc:"책, 필기, 도서관, 지적인 무드", keywords:"책 스티커, 격자 마테, 스탬프" },
+  { name:"동화 속 세계 🧚", desc:"파스텔, 별, 달, 마법 같은 느낌", keywords:"별 스티커, 파스텔 마테, 달 도장" },
+  { name:"도시 감성 🏙️", desc:"모노톤, 신문지 스크랩, 어반 무드", keywords:"신문지, 흑백 사진, 굵은 펜" },
+  { name:"가을 낙엽 🍂", desc:"브라운, 오렌지, 따뜻하고 포근한 느낌", keywords:"낙엽 스티커, 갈색 마테, 도토리 스탬프" },
+  { name:"바다 여름 🌊", desc:"블루, 조개, 샌드, 시원한 느낌", keywords:"조개 스티커, 블루 마테, 물결 스탬프" },
+  { name:"카페 감성 ☕", desc:"크래프트지, 커피, 따뜻한 갈색 톤", keywords:"크래프트지, 커피 스탬프, 체크 마테" },
+  { name:"봄 피크닉 🌸", desc:"봄날의 싱그러움, 꽃과 풀밭 느낌", keywords:"꽃 스티커, 트레이싱지, 민트 마테" },
+  { name:"필름 감성 📷", desc:"아날로그 무드, 필름 스트립 느낌", keywords:"필름 스티커, 영수증, 클립" },
+  { name:"홈카페 브런치 🥞", desc:"아늑하고 달콤한 집에서 쉬는 느낌", keywords:"음식 스티커, 파스텔 마테, 리본" },
+  { name:"달빛 감성 🌙", desc:"밤하늘, 별빛, 고요하고 몽환적인 느낌", keywords:"별 스티커, 다크 마테, 달 스탬프" },
+  { name:"포레스트 산책 🌲", desc:"숲속 산책, 자연과 함께하는 느낌", keywords:"나뭇잎 스티커, 그린 마테, 버섯 스탬프" },
+  { name:"레드 포인트 🍒", desc:"발랄한 포인트, 체리처럼 선명한 느낌", keywords:"레드 스티커, 라벨, 체크 마테" },
+  { name:"크리스마스 🎄", desc:"겨울의 따뜻함, 선물과 눈 느낌", keywords:"눈송이 스티커, 빨강 마테, 리본" },
+  { name:"그라데이션 선셋 🌅", desc:"노을빛 색감, 하늘과 구름 느낌", keywords:"오렌지 마테, 구름 스티커, 수채화풍" },
+  { name:"파리지엔 🗼", desc:"유럽 여행, 세련되고 로맨틱한 느낌", keywords:"엽서, 우표 스티커, 프렌치 마테" },
+  { name:"귀여운 동물 🐻", desc:"곰돌이, 토끼 등 동물 캐릭터 무드", keywords:"동물 스티커, 둥근 마테, 캐릭터 도장" },
+];
+
+function pick(key) {
+  const btn = document.getElementById(`${key}-btn`);
+  btn.disabled = true;
+  btn.textContent = '🎲 뽑는 중...';
+
+  if (key === 'layout') {
+    document.getElementById('layout-sketch').innerHTML = '<div class="sketch-empty spinning">🎲 뽑는 중...</div>';
+    document.getElementById('layout-result').innerHTML = '';
+  } else {
+    document.getElementById(`${key}-result`).innerHTML = '<div class="sketch-empty spinning">뽑는 중...</div>';
   }
+
+  setTimeout(() => {
+    if (key === 'color') {
+      const item = colors[Math.floor(Math.random() * colors.length)];
+      state.color = item;
+      document.getElementById('color-result').innerHTML = `
+        <div class="swatch-row">${item.hex.map((h,i)=>`<div class="swatch-item"><div class="swatch" style="background:${h}"></div><div class="swatch-name">${item.names[i]}</div></div>`).join('')}</div>
+        <div class="result-name">${item.name}</div>
+        <div class="result-desc">메인 컬러를 가장 넓게, 포인트 컬러는 살짝만 써보세요 ✨</div>`;
+    } else if (key === 'layout') {
+      const item = layouts[Math.floor(Math.random() * layouts.length)];
+      state.layout = item;
+      document.getElementById('layout-sketch').innerHTML = item.svg;
+      document.getElementById('layout-result').innerHTML = `
+        <div class="result-name" style="margin-top:10px;">${item.name}</div>
+        <div class="result-desc">${item.desc}</div>
+        <div class="trait">⭐ ${item.feel}</div>
+        <div class="trait">✏️ ${item.usage}</div>
+        <div class="tag" style="margin-top:6px;"><span class="tag-label">추천 무드</span> ${item.mood}</div>
+        <div class="tag"><span class="tag-label">추천 재료</span> ${item.material}</div>`;
+    } else {
+      const item = themes[Math.floor(Math.random() * themes.length)];
+      state.theme = item;
+      document.getElementById('theme-result').innerHTML = `
+        <div class="result-name">${item.name}</div>
+        <div class="result-desc">${item.desc}</div>
+        <div class="tag"><span class="tag-label">추천 재료</span> ${item.keywords}</div>`;
+    }
+    btn.disabled = false;
+    btn.textContent = '🔄 다시 뽑기';
+    if (state.color && state.layout && state.theme) document.getElementById('save-btn').disabled = false;
+  }, 700);
+}
+
+function resetAll() {
+  state.color = null; state.layout = null; state.theme = null;
+  document.getElementById('color-result').innerHTML = '<div class="sketch-empty">버튼을 눌러 오늘의 컬러를 뽑아봐요!</div>';
+  document.getElementById('layout-sketch').innerHTML = '<div class="sketch-empty">버튼을 눌러<br>오늘의 레이아웃을 뽑아봐요!</div>';
+  document.getElementById('layout-result').innerHTML = '';
+  document.getElementById('theme-result').innerHTML = '<div class="sketch-empty">버튼을 눌러 오늘의 무드를 뽑아봐요!</div>';
+  ['color-btn','layout-btn','theme-btn'].forEach(id => {
+    const b = document.getElementById(id); b.disabled = false;
+    b.textContent = '✨ ' + (id==='color-btn'?'컬러':id==='layout-btn'?'레이아웃':'무드') + ' 뽑기';
+  });
+  document.getElementById('save-btn').disabled = true;
+  document.getElementById('save-status').textContent = '';
+}
+
+async function saveImage() {
+  const btn = document.getElementById('save-btn');
+  const status = document.getElementById('save-status');
+  btn.disabled = true; btn.textContent = '🌸 저장 중...'; status.textContent = '';
+  const now = new Date();
+  document.getElementById('sp-date').textContent = `${now.getFullYear()}년 ${now.getMonth()+1}월 ${now.getDate()}일`;
+  document.getElementById('sp-color-name').textContent = state.color.name;
+  document.getElementById('sp-swatches').innerHTML = state.color.hex.map(h=>`<div class="sp-swatch" style="background:${h}"></div>`).join('');
+  document.getElementById('sp-layout-name').textContent = state.layout.name;
+  const sketchEl = document.getElementById('sp-sketch');
+  sketchEl.innerHTML = state.layout.svg;
+  sketchEl.querySelector('svg').style.cssText = 'width:100%;max-width:280px;height:auto;';
+  document.getElementById('sp-layout-desc').textContent = state.layout.desc;
+  document.getElementById('sp-theme-name').textContent = state.theme.name;
+  document.getElementById('sp-theme-desc').textContent = state.theme.desc;
+  await new Promise(r => setTimeout(r, 150));
+  try {
+    const canvas = await html2canvas(document.getElementById('save-preview'), { scale:2, useCORS:true, backgroundColor:'#F5EDE0' });
+    const link = document.createElement('a');
+    link.download = `다꾸뽑기_${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    status.textContent = '✅ 저장 완료! 갤러리에서 확인해봐요 🌸';
+  } catch(e) {
+    status.textContent = '⚠️ 저장 중 오류가 생겼어요. 다시 시도해봐요!';
+  }
+  btn.disabled = false; btn.textContent = '🔖 이미지 저장';
+}
 </script>
 
 </body>
