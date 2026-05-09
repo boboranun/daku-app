@@ -1,0 +1,11 @@
+{
+  "name": "오늘의 다꾸 뽑기",
+  "short_name": "다꾸 뽑기",
+  "description": "오늘의 다꾸를 랜덤으로 만나보세요",
+  "start_url": "/daku-app/",
+  "display": "standalone",
+  "background_color": "#F5EDE0",
+  "theme_color": "#F5EDE0",
+  "orientation": "portrait",
+  "icons": [
+    {
