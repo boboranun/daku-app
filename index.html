@@ -396,6 +396,24 @@ window.addEventListener('load', () => {
       pointer-events: none;
     }
 
+    .close-btn {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 1000;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(253,248,240,0.9);
+      border: 1.5px solid #E8D0B4;
+      box-shadow: 0 2px 8px rgba(92,56,32,0.12);
+      font-size: 0.9rem;
+      color: #9B7050;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
     .spinning { animation: pulse 0.7s ease infinite; }
     #save-preview { position: fixed; left: -9999px; top: 0; width: 360px; background: #F5EDE0; font-family: 'Nanum Gothic', sans-serif; padding: 28px 24px; }
@@ -413,6 +431,8 @@ window.addEventListener('load', () => {
 
 </head>
 <body>
+
+<button class="close-btn" onclick="window.history.back()">✕</button>
 
 <div class="toast" id="toast"></div>
 <div id="splash">
